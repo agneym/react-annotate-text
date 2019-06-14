@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function useHighlighter() {
   const [position, setPosition] = useState(null);
   useEffect(() => {
-    const onMouseUp = event => {
+    const onMouseUp = () => {
       const selection = window.getSelection();
       const selectionText = selection.toString();
       if (selectionText) {
@@ -16,9 +16,14 @@ function useHighlighter() {
         setPosition(null);
       }
     };
+    const onScroll = () => {
+      setPosition(null);
+    };
     document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("scroll", onScroll);
     return () => {
       document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("scroll", onScroll);
     };
   }, []);
   return {
