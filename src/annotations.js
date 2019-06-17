@@ -1,6 +1,6 @@
 import React from "react";
 
-function Annotations({ highlights, scrollTop }) {
+function Annotations({ highlights, contentPositions }) {
   console.log(highlights);
   return highlights.map(highlight => {
     return Array.from(highlight).map((rect, index) => (
@@ -8,7 +8,7 @@ function Annotations({ highlights, scrollTop }) {
         key={index}
         style={{
           position: "fixed",
-          top: rect.top - scrollTop,
+          top: rect.top - contentPositions.scrollTop,
           left: rect.left,
           width: rect.width,
           opacity: 0.2,

@@ -9,13 +9,22 @@ import Annotations from "./annotations";
 function App() {
   const { position } = useHighlighter();
   const [highlights, setHighlights] = useState([]);
-  const [scrollTop, setScrollTop] = useState(0);
+  const [contentPositions, setContentPositions] = useState({
+    left: 0,
+    scrollTop: 0
+  });
   const addHighlights = highlight => {
     setHighlights(prevHighlights => [...prevHighlights, highlight]);
   };
   const onScroll = e => {
-    setScrollTop(e.target.scrollTop);
+    setContentPositions({
+      left: contentPositions.left,
+      scrollTop: e.target.scrollTop
+    });
   };
+  console.log("highlights", highlights);
+  console.log("contentPositions", contentPositions);
+
   return (
     <div className="App" onScroll={onScroll}>
       <h1>Hello CodeSandbox</h1>
@@ -116,7 +125,10 @@ function App() {
         Before we can talk about effects, we need to talk about rendering.
         Here’s a counter. Look at the highlighted line closely:
       </p>
-      <Annotations highlights={highlights} scrollTop={scrollTop} />
+      <Annotations
+        highlights={highlights}
+        contentPositions={contentPositions}
+      />
       {position && (
         <HighlightElement position={position} addHighlight={addHighlights} />
       )}
