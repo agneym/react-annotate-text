@@ -25,16 +25,18 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
   }, [loading]);
 
   const onAddButtonClick = () => {
-    console.log("position.client");
     // let positionArray = Array.prototype.slice.call(position.client)
     // positionArray.array.forEach(element => {
     //   console.log(element)
     // });
-    for (let i = 0; i < position.client.length; i++) {
-      console.log(position.client[i]);
-      position.client[i].correctedTop =
-        position.client[i].top + contentPositions.scrollTop;
-    }
+    Array.from(position.client).forEach(rectangle => {
+      rectangle.correctedTop = rectangle.top + contentPositions.scrollTop;
+    });
+    // for (let i = 0; i < position.client.length; i++) {
+    //   console.log(position.client[i]);
+    //   position.client[i].correctedTop =
+    //     position.client[i].top + contentPositions.scrollTop;
+    // }
     addHighlight(position.client);
   };
 

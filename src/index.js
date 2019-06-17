@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
 import useHighlighter from "./use-highlighter";
 import HighlightElement from "./highlight-element";
 import Annotations from "./annotations";
-
 function App() {
+  const containerElement = useRef(null);
   const { position } = useHighlighter();
   const [highlights, setHighlights] = useState([]);
   const [contentPositions, setContentPositions] = useState({
     left: 0,
     scrollTop: 0
   });
+
+  console.log("highlights", highlights);
+  useLayoutEffect(() => {
+    setContentPositions({
+      left: containerElement.current.offsetLeft,
+      scrollTop: contentPositions.scrollTop
+    });
+  }, []);
+
   const addHighlights = highlight => {
     setHighlights(prevHighlights => [...prevHighlights, highlight]);
   };
@@ -22,11 +31,9 @@ function App() {
       scrollTop: e.target.scrollTop
     });
   };
-  console.log("highlights", highlights);
-  console.log("contentPositions", contentPositions);
 
   return (
-    <div className="App" onScroll={onScroll}>
+    <div ref={containerElement} className="App" onScroll={onScroll}>
       <h1>Hello CodeSandbox</h1>
       <h2>Start editing to see some magic happen!</h2>
       <p>
