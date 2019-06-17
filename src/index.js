@@ -130,7 +130,11 @@ function App() {
         contentPositions={contentPositions}
       />
       {position && (
-        <HighlightElement position={position} addHighlight={addHighlights} />
+        <HighlightElement
+          position={position}
+          addHighlight={addHighlights}
+          contentPositions={contentPositions}
+        />
       )}
     </div>
   );

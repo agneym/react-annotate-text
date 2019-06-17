@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const highlightRoot = document.getElementById("highlight-root");
 
-function HighlightElement({ position, addHighlight }) {
+function HighlightElement({ position, addHighlight, contentPositions }) {
   const containerEl = useRef(null);
   const highlightPopup = useRef(null);
   const [loading, setLoading] = useState(true);
@@ -23,6 +23,21 @@ function HighlightElement({ position, addHighlight }) {
       setContentHeight(height);
     }
   }, [loading]);
+
+  const onAddButtonClick = () => {
+    console.log("position.client");
+    // let positionArray = Array.prototype.slice.call(position.client)
+    // positionArray.array.forEach(element => {
+    //   console.log(element)
+    // });
+    for (let i = 0; i < position.client.length; i++) {
+      console.log(position.client[i]);
+      position.client[i].correctedTop =
+        position.client[i].top + contentPositions.scrollTop;
+    }
+    addHighlight(position.client);
+  };
+
   if (containerEl.current) {
     return createPortal(
       <div
@@ -35,9 +50,7 @@ function HighlightElement({ position, addHighlight }) {
         ref={highlightPopup}
       >
         <div style={{ backgroundColor: "red", padding: "0.5rem" }}>
-          <button onClick={() => addHighlight(position.client)}>
-            Add Highlight
-          </button>
+          <button onClick={onAddButtonClick}>Add Highlight</button>
         </div>
       </div>,
       containerEl.current
