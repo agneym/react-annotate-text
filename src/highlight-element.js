@@ -3,7 +3,8 @@ import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
 const highlightRoot = document.getElementById("highlight-root");
-function HighlightElement({ position }) {
+
+function HighlightElement({ position, addHighlight }) {
   const containerEl = useRef(null);
   const highlightPopup = useRef(null);
   const [loading, setLoading] = useState(true);
@@ -27,13 +28,17 @@ function HighlightElement({ position }) {
       <div
         style={{
           position: "fixed",
-          top: position.y - contentHeight,
-          left: position.x,
+          top: position.bounding.y - contentHeight,
+          left: position.bounding.x,
           opacity: !!contentHeight ? 1 : 0
         }}
         ref={highlightPopup}
       >
-        <p style={{ backgroundColor: "red" }}>Highlight content</p>
+        <div style={{ backgroundColor: "red", padding: "0.5rem" }}>
+          <button onClick={() => addHighlight(position.client)}>
+            Add Highlight
+          </button>
+        </div>
       </div>,
       containerEl.current
     );

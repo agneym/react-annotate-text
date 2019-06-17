@@ -10,8 +10,12 @@ function useHighlighter() {
         const range = selection.getRangeAt(0);
         const placeholderEl = document.createElement("span");
         range.insertNode(placeholderEl);
-        const box = placeholderEl.getBoundingClientRect();
-        setPosition(box);
+        const bounding = placeholderEl.getBoundingClientRect();
+        const client = placeholderEl.getClientRects();
+        setPosition({
+          bounding,
+          client
+        });
       } else {
         setPosition(null);
       }

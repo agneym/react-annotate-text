@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
@@ -7,6 +7,10 @@ import HighlightElement from "./highlight-element";
 
 function App() {
   const { position } = useHighlighter();
+  const [highlights, setHighlights] = useState([]);
+  const addHighlights = highlight => {
+    setHighlights(prevHighlights => [...prevHighlights, highlight]);
+  };
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
@@ -108,7 +112,9 @@ function App() {
         Here’s a counter. Look at the highlighted line closely:
       </p>
 
-      {position && <HighlightElement position={position} />}
+      {position && (
+        <HighlightElement position={position} addHighlight={addHighlights} />
+      )}
     </div>
   );
 }
