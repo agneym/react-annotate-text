@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 import useHighlighter from "./use-highlighter";
 import HighlightElement from "./highlight-element";
+import Annotations from "./annotations";
 
 function App() {
   const { position } = useHighlighter();
@@ -111,7 +112,7 @@ function App() {
         Before we can talk about effects, we need to talk about rendering.
         Here’s a counter. Look at the highlighted line closely:
       </p>
-
+      <Annotations highlights={highlights} />
       {position && (
         <HighlightElement position={position} addHighlight={addHighlights} />
       )}

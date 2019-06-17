@@ -9,3 +9,7 @@ body {
   width: 300px;
   position: relative;
 }
+
+.App p {
+  z-index: 2;
+}

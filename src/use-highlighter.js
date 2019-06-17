@@ -11,7 +11,7 @@ function useHighlighter() {
         const placeholderEl = document.createElement("span");
         range.insertNode(placeholderEl);
         const bounding = placeholderEl.getBoundingClientRect();
-        const client = placeholderEl.getClientRects();
+        const client = range.getClientRects();
         setPosition({
           bounding,
           client
