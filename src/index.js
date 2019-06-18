@@ -16,13 +16,15 @@ function App() {
     offsetTop: 0
   });
   const onWindowScroll = () => {
-    // let boundingRect = containerElement.current.getBoundingClientRect()
-    //  setContentPositions(previousPosition=>({...previousPosition, offsetTop:boundingRect.top }))
+    let boundingRect = containerElement.current.getBoundingClientRect();
+    setContentPositions(previousPosition => ({
+      ...previousPosition,
+      offsetTop: boundingRect.top
+    }));
   };
 
-  window.addEventListener("scroll", onWindowScroll);
-
   useLayoutEffect(() => {
+    window.addEventListener("scroll", onWindowScroll);
     setContentPositions(previousPosition => ({
       ...previousPosition,
       offsetLeft: containerElement.current.offsetLeft,
@@ -34,10 +36,10 @@ function App() {
     setHighlights(prevHighlights => [...prevHighlights, highlight]);
   };
 
-  const onScroll = e => {
+  const onScroll = () => {
     setContentPositions(previousPosition => ({
       ...previousPosition,
-      scrollTop: e.target.scrollTop
+      scrollTop: containerElement.current.scrollTop
     }));
   };
 
