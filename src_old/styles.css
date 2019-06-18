@@ -1,0 +1,25 @@
+body {
+}
+
+.App {
+  /* font-family: sans-serif;
+  text-align: center;
+  width: 900px;
+  border: 1px solid black;
+  height: 90vh;
+  overflow: scroll; */
+  position: relative;
+}
+
+.App p {
+  z-index: 2;
+}
+
+.iframeContainer {
+  overflow: scroll;
+}
+
+.react-container {
+  display: flex;
+  justify-content: center;
+}
