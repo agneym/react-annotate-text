@@ -7,6 +7,7 @@ function Annotations({ src, srcDoc, height, width, data, addHighlightsClick }) {
     <div className="react-text-highlighter-container">
       <iframe
         className={"react-text-highlighter-iframe"}
+        src={src}
         srcDoc={srcDoc}
         width={width}
         height={height}

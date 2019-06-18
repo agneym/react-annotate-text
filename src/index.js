@@ -15,7 +15,7 @@ function App() {
       <div className="right">
         right
         <ReactTextHighlight
-          src={null}
+          //src={"http://sednaenergy.in/"}
           srcDoc={htmlContent}
           height={600}
           width={500}
