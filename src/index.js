@@ -5,8 +5,8 @@ import ReactTextHighlight from "./react-text-highlighter/index";
 import { htmlContent } from "./const";
 
 function App() {
-  const addHighlights = () => {
-    console.log("addHighlights");
+  const addHighlightsClick = value => {
+    console.log("addHighlights", value);
   };
 
   return (
@@ -20,7 +20,7 @@ function App() {
           height={600}
           width={500}
           data={[]}
-          addHighlights={addHighlights}
+          addHighlightsClick={addHighlightsClick}
         />
       </div>
     </div>
