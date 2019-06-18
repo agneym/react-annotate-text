@@ -9,6 +9,7 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
   const highlightPopup = useRef(null);
   const [loading, setLoading] = useState(true);
   const [contentHeight, setContentHeight] = useState(0);
+
   useEffect(() => {
     containerEl.current = document.createElement("div");
     highlightRoot.appendChild(containerEl.current);
@@ -25,18 +26,11 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
   }, [loading]);
 
   const onAddButtonClick = () => {
-    // let positionArray = Array.prototype.slice.call(position.client)
-    // positionArray.array.forEach(element => {
-    //   console.log(element)
-    // });
     Array.from(position.client).forEach(rectangle => {
-      rectangle.correctedTop = rectangle.top + contentPositions.scrollTop;
+      rectangle.correctedTop =
+        rectangle.top + contentPositions.scrollTop - contentPositions.offsetTop;
+      rectangle.correctedLeft = rectangle.left - contentPositions.offsetLeft;
     });
-    // for (let i = 0; i < position.client.length; i++) {
-    //   console.log(position.client[i]);
-    //   position.client[i].correctedTop =
-    //     position.client[i].top + contentPositions.scrollTop;
-    // }
     addHighlight(position.client);
   };
 

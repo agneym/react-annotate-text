@@ -7,8 +7,8 @@ function Annotations({ highlights, contentPositions }) {
         key={index}
         style={{
           position: "absolute",
-          top: rect.correctedTop - contentPositions.scrollTop,
-          left: rect.left - contentPositions.left,
+          top: rect.correctedTop,
+          left: rect.correctedLeft,
           width: rect.width,
           opacity: 0.2,
           height: rect.height,

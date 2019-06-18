@@ -10,15 +10,22 @@ function App() {
   const { position } = useHighlighter();
   const [highlights, setHighlights] = useState([]);
   const [contentPositions, setContentPositions] = useState({
-    left: 0,
-    scrollTop: 0
+    offsetLeft: 0,
+    scrollTop: 0,
+    offsetTop: 0
   });
+  const onWindowScroll = e => {
+    console.log(e);
+  };
+
+  window.addEventListener("scroll", onWindowScroll);
 
   console.log("highlights", highlights);
   useLayoutEffect(() => {
     setContentPositions({
-      left: containerElement.current.offsetLeft,
-      scrollTop: contentPositions.scrollTop
+      offsetLeft: containerElement.current.offsetLeft,
+      scrollTop: contentPositions.scrollTop,
+      offsetTop: containerElement.current.offsetTop
     });
   }, []);
 
@@ -27,8 +34,9 @@ function App() {
   };
   const onScroll = e => {
     setContentPositions({
-      left: contentPositions.left,
-      scrollTop: e.target.scrollTop
+      offsetLeft: contentPositions.offsetLeft,
+      scrollTop: e.target.scrollTop,
+      offsetTop: contentPositions.offsetTop
     });
   };
 
