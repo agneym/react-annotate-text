@@ -1,17 +1,13 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 1500px;
 }
 
 .App {
-  font-family: sans-serif;
+  /* font-family: sans-serif;
   text-align: center;
   width: 900px;
   border: 1px solid black;
   height: 90vh;
-  overflow: scroll;
+  overflow: scroll; */
   position: relative;
 }
 

@@ -1,13 +1,13 @@
 import React from "react";
 
-function Annotations({ highlights }) {
+function Annotations({ highlights, contentPositions }) {
   return highlights.map(highlight => {
     return Array.from(highlight).map((rect, index) => (
       <span
         key={index}
         style={{
           position: "absolute",
-          top: rect.correctedTop,
+          top: rect.correctedTop - contentPositions.scrollTop,
           left: rect.correctedLeft,
           width: rect.width,
           opacity: 0.2,
