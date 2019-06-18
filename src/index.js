@@ -44,10 +44,11 @@ function App() {
         .contentDocument.addEventListener("scroll", () => {
           onScroll();
         });
+      let boundingRect = containerElement.current.getBoundingClientRect();
       setContentPositions(previousPosition => ({
         ...previousPosition,
-        offsetLeft: containerElement.current.offsetLeft,
-        offsetTop: containerElement.current.offsetTop
+        offsetLeft: boundingRect.left,
+        offsetTop: boundingRect.top
       }));
     });
     window.addEventListener("scroll", onWindowScroll);

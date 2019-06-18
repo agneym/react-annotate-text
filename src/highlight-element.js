@@ -39,7 +39,7 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
       <div
         style={{
           position: "absolute",
-          top: position.bounding.y - contentHeight,
+          top: position.bounding.y - contentHeight + contentPositions.offsetTop,
           left: position.bounding.x + contentPositions.offsetLeft,
           opacity: !!contentHeight ? 1 : 0
         }}
