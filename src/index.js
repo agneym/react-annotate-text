@@ -49,6 +49,13 @@ function App() {
   return (
     <div ref={containerElement} className="App" onScroll={onScroll}>
       <div style={{ width: "1200px" }}>
+        {/* <div dangerouslySetInnerHTML={{__html:'<iframe src="file:///home/amal_jose/study/react-annotate-text/src/template.html" width="540" height="450"  className="iframeContainer"></iframe>'}} /> */}
+        <iframe
+          srcdoc="<h1>HTML</h1>"
+          width="540"
+          height="450"
+          className="iframeContainer"
+        ></iframe>
         <h1>Hello CodeSandbox</h1>
         <h2>Start editing to see some magic happen!</h2>
         <p>

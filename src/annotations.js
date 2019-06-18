@@ -1,6 +1,6 @@
 import React from "react";
 
-function Annotations({ highlights, contentPositions }) {
+function Annotations({ highlights }) {
   return highlights.map(highlight => {
     return Array.from(highlight).map((rect, index) => (
       <span
