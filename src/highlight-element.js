@@ -30,7 +30,10 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
     highlightRectangles.forEach(rectangle => {
       rectangle.correctedTop =
         rectangle.top + contentPositions.scrollTop - contentPositions.offsetTop;
-      rectangle.correctedLeft = rectangle.left - contentPositions.offsetLeft;
+      rectangle.correctedLeft =
+        rectangle.left +
+        contentPositions.scrollLeft -
+        contentPositions.offsetLeft;
     });
     console.log("position.client", position.client);
     addHighlight(highlightRectangles);
