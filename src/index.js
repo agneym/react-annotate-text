@@ -15,27 +15,30 @@ function App() {
     scrollTop: 0,
     offsetTop: 0
   });
-  const onWindowScroll = e => {};
+  const onWindowScroll = () => {
+    // let boundingRect = containerElement.current.getBoundingClientRect()
+    //  setContentPositions(previousPosition=>({...previousPosition, offsetTop:boundingRect.top }))
+  };
 
   window.addEventListener("scroll", onWindowScroll);
 
   useLayoutEffect(() => {
-    setContentPositions({
+    setContentPositions(previousPosition => ({
+      ...previousPosition,
       offsetLeft: containerElement.current.offsetLeft,
-      scrollTop: contentPositions.scrollTop,
       offsetTop: containerElement.current.offsetTop
-    });
+    }));
   }, []);
 
   const addHighlights = highlight => {
     setHighlights(prevHighlights => [...prevHighlights, highlight]);
   };
+
   const onScroll = e => {
-    setContentPositions({
-      offsetLeft: contentPositions.offsetLeft,
-      scrollTop: e.target.scrollTop,
-      offsetTop: contentPositions.offsetTop
-    });
+    setContentPositions(previousPosition => ({
+      ...previousPosition,
+      scrollTop: e.target.scrollTop
+    }));
   };
 
   return (

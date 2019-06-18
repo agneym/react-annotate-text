@@ -31,7 +31,7 @@ function useHighlighter(containerElement) {
       document.removeEventListener("scroll", onScroll);
       containerElement.current.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [containerElement]);
   return {
     position
   };
