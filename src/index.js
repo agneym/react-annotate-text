@@ -16,46 +16,42 @@ function App() {
     scrollLeft: 0,
     scrollTop: 0
   });
+
   const onWindowScroll = () => {
+    // let boundingRect = containerElement.current.getBoundingClientRect();
+    // setContentPositions(previousPosition => ({
+    //   ...previousPosition,
+    //   offsetTop: boundingRect.top,
+    //   offsetLeft: boundingRect.left
+    // }));
+  };
+
+  const onScroll = () => {
     let boundingRect = containerElement.current.getBoundingClientRect();
     setContentPositions(previousPosition => ({
       ...previousPosition,
+      scrollTop: containerElement.current.contentWindow.scrollY,
+      scrollLeft: containerElement.current.scrollLeft,
       offsetTop: boundingRect.top,
       offsetLeft: boundingRect.left
     }));
   };
 
-  const onScroll = () => {
-    console.log("scroll", containerElement.current.contentWindow.scrollY);
-
-    setContentPositions(previousPosition => ({
-      ...previousPosition,
-      scrollTop: containerElement.current.contentWindow.scrollY,
-      scrollLeft: containerElement.current.scrollLeft
-    }));
-  };
-
   useLayoutEffect(() => {
     document.getElementById("iframeContainer").addEventListener("load", () => {
-      console.log("loaded");
       document
         .getElementById("iframeContainer")
         .contentDocument.addEventListener("scroll", () => {
           onScroll();
         });
+      setContentPositions(previousPosition => ({
+        ...previousPosition,
+        offsetLeft: containerElement.current.offsetLeft,
+        offsetTop: containerElement.current.offsetTop
+      }));
     });
     window.addEventListener("scroll", onWindowScroll);
-    setContentPositions(previousPosition => ({
-      ...previousPosition,
-      offsetLeft: containerElement.current.offsetLeft,
-      offsetTop: containerElement.current.offsetTop
-    }));
   }, []);
-
-  // const loaded=() => {
-  //   console.log("iframe container", document.getElementById("iframeContainer").contentDocument)
-  //   document.getElementById('iframeContainer').contentDocument.addEventListener("click",()=>{console.log("dsd")})
-  // }
 
   const addHighlights = highlight => {
     setHighlights(prevHighlights => [...prevHighlights, highlight]);
@@ -83,6 +79,7 @@ function App() {
           contentPositions={contentPositions}
         />
       )}
+      <div id="highlight-root"></div>
     </div>
   );
 }

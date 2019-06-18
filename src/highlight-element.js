@@ -28,14 +28,9 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
   const onAddButtonClick = () => {
     let highlightRectangles = Array.from(position.client);
     highlightRectangles.forEach(rectangle => {
-      rectangle.correctedTop =
-        rectangle.top + contentPositions.scrollTop - contentPositions.offsetTop;
-      rectangle.correctedLeft =
-        rectangle.left +
-        contentPositions.scrollLeft -
-        contentPositions.offsetLeft;
+      rectangle.correctedTop = rectangle.top + contentPositions.scrollTop;
+      rectangle.correctedLeft = rectangle.left + contentPositions.scrollLeft;
     });
-    console.log("position.client", position.client);
     addHighlight(highlightRectangles);
   };
 
@@ -43,9 +38,9 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
     return createPortal(
       <div
         style={{
-          position: "fixed",
+          position: "absolute",
           top: position.bounding.y - contentHeight,
-          left: position.bounding.x,
+          left: position.bounding.x + contentPositions.offsetLeft,
           opacity: !!contentHeight ? 1 : 0
         }}
         ref={highlightPopup}

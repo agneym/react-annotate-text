@@ -18,3 +18,8 @@ body {
 .iframeContainer {
   overflow: scroll;
 }
+
+.react-container {
+  display: flex;
+  justify-content: center;
+}
