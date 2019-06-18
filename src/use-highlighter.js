@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function useHighlighter() {
+function useHighlighter(containerElement) {
   const [position, setPosition] = useState(null);
   useEffect(() => {
     const onMouseUp = () => {
@@ -23,11 +23,13 @@ function useHighlighter() {
     const onScroll = () => {
       setPosition(null);
     };
-    document.addEventListener("mouseup", onMouseUp);
+    containerElement.current.addEventListener("mouseup", onMouseUp);
+    containerElement.current.addEventListener("scroll", onScroll);
     document.addEventListener("scroll", onScroll);
     return () => {
       document.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("scroll", onScroll);
+      containerElement.current.removeEventListener("scroll", onScroll);
     };
   }, []);
   return {

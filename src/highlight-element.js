@@ -26,11 +26,15 @@ function HighlightElement({ position, addHighlight, contentPositions }) {
   }, [loading]);
 
   const onAddButtonClick = () => {
-    Array.from(position.client).forEach(rectangle => {
+    Array.from(position.client).forEach((rectangle, index, object) => {
+      if (rectangle.width === 0) {
+        object.splice(index, 1);
+      }
       rectangle.correctedTop =
         rectangle.top + contentPositions.scrollTop - contentPositions.offsetTop;
       rectangle.correctedLeft = rectangle.left - contentPositions.offsetLeft;
     });
+    console.log("position.client", position.client);
     addHighlight(position.client);
   };
 

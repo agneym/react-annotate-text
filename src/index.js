@@ -7,20 +7,18 @@ import HighlightElement from "./highlight-element";
 import Annotations from "./annotations";
 function App() {
   const containerElement = useRef(null);
-  const { position } = useHighlighter();
+
+  const { position } = useHighlighter(containerElement);
   const [highlights, setHighlights] = useState([]);
   const [contentPositions, setContentPositions] = useState({
     offsetLeft: 0,
     scrollTop: 0,
     offsetTop: 0
   });
-  const onWindowScroll = e => {
-    console.log(e);
-  };
+  const onWindowScroll = e => {};
 
   window.addEventListener("scroll", onWindowScroll);
 
-  console.log("highlights", highlights);
   useLayoutEffect(() => {
     setContentPositions({
       offsetLeft: containerElement.current.offsetLeft,
