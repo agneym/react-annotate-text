@@ -4,15 +4,10 @@ function DisplayAnnotaion({ data, iframeElementRef }) {
   const [iframePosition, changeIframePosition] = useState(null);
   useEffect(() => {
     iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
-      console.log(
-        "scroll inside annotation",
-        iframeElementRef.current.contentWindow.scrollY
-      );
       changeIframePosition({
         scrollY: iframeElementRef.current.contentWindow.scrollY,
         scrollX: iframeElementRef.current.contentWindow.scrollX
       });
-      //changeIframePosition(null)
     });
   }, []);
 
@@ -20,16 +15,16 @@ function DisplayAnnotaion({ data, iframeElementRef }) {
     return Array.from(singleAnnotation.client).map((rectangle, idIn) => {
       return (
         <div
-          key={idOut + "c" + idIn}
+          key={idOut + "+" + idIn}
           style={{
             position: "absolute",
             height: rectangle.height,
             top: iframePosition
-              ? rectangle.top - iframePosition.scrollY
-              : rectangle.top,
+              ? rectangle.correctedTop - iframePosition.scrollY
+              : rectangle.correctedTop,
             left: iframePosition
-              ? rectangle.left - iframePosition.scrollX
-              : rectangle.left,
+              ? rectangle.correctedLeft - iframePosition.scrollX
+              : rectangle.correctedLeft,
             width: rectangle.width,
             backgroundColor: "yellow",
             opacity: 0.2
@@ -38,6 +33,17 @@ function DisplayAnnotaion({ data, iframeElementRef }) {
       );
     });
   });
-  return content;
+  return (
+    <div
+      style={
+        {
+          // height:height,
+          // width:width
+        }
+      }
+    >
+      {content}
+    </div>
+  );
 }
 export default DisplayAnnotaion;

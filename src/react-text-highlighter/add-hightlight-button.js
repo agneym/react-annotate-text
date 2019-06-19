@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
+  const [iframePosition, changeIframePosition] = useState(null);
 
   const findAddButtonPosition = clientRectangleArray => {
-    const neededIndex = 0;
-    const leastTop = clientRectangleArray[0].top;
+    let neededIndex = 0;
+    let leastTop = clientRectangleArray[0].top;
     clientRectangleArray.forEach((element, index) => {
-      if (clientRectangleArray[index].top < leastTop) {
+      if (element.top < leastTop) {
         neededIndex = index;
         leastTop = clientRectangleArray[index].top;
       }
@@ -16,15 +17,25 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
     return clientRectangleArray[neededIndex];
   };
 
-  // const changePosition = value => {
-  //   if (value) {
-  //     // addHighlightsClick(value);//callback
-  //     const addButtonPosition = findAddButtonPosition(Array.from(value.client));
-  //     changeposition({ ...value, addButtonPosition });
-  //   } else {
-  //     changeposition(null);
-  //   }
-  // };
+  const addButtonClick = () => {
+    Array.from(position.client).forEach(item => {
+      item.correctedTop = iframePosition
+        ? item.top + iframePosition.scrollY
+        : item.top;
+      item.correctedLeft = iframePosition
+        ? item.left + iframePosition.scrollX
+        : item.left;
+    });
+    addHighlightsClick(position);
+  };
+
+  const onScrollHandler = () => {
+    changeButtonPosition(null);
+    changeIframePosition({
+      scrollY: iframeElementRef.current.contentWindow.scrollY,
+      scrollX: iframeElementRef.current.contentWindow.scrollX
+    });
+  };
 
   useEffect(() => {
     const onMouseUp = () => {
@@ -51,8 +62,7 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       onMouseUp
     );
     iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
-      changeButtonPosition(null);
-      console.log("scroll");
+      onScrollHandler();
     });
     return () => {
       iframeElementRef.current.contentDocument.removeEventListener(
@@ -77,7 +87,7 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"
-        onClick={() => addHighlightsClick(position)}
+        onClick={addButtonClick}
         style={{
           left: buttonPosition.left,
           top: buttonPosition.top - 20,

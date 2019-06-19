@@ -28,7 +28,12 @@ function Annotations({ src, srcDoc, height, width, data, addHighlightsClick }) {
         addHighlightsClick={addHighlightsClick}
         iframeElementRef={iframeElementRef}
       />
-      <DisplayAnnotaions data={data} iframeElementRef={iframeElementRef} />
+      <DisplayAnnotaions
+        data={data}
+        width={width}
+        height={height}
+        iframeElementRef={iframeElementRef}
+      />
     </div>
   );
 }
