@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
-  const [positionInside, changePositionInside] = useState(null);
+  const [position, changePosition] = useState(null);
+  const [buttonPosition, changeButtonPosition] = useState(null);
 
   const findAddButtonPosition = clientRectangleArray => {
     const neededIndex = 0;
@@ -15,15 +16,15 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
     return clientRectangleArray[neededIndex];
   };
 
-  const changePosition = value => {
-    if (value) {
-      // addHighlightsClick(value);//callback
-      const addButtonPosition = findAddButtonPosition(Array.from(value.client));
-      changePositionInside({ ...value, addButtonPosition });
-    } else {
-      changePositionInside(null);
-    }
-  };
+  // const changePosition = value => {
+  //   if (value) {
+  //     // addHighlightsClick(value);//callback
+  //     const addButtonPosition = findAddButtonPosition(Array.from(value.client));
+  //     changeposition({ ...value, addButtonPosition });
+  //   } else {
+  //     changeposition(null);
+  //   }
+  // };
 
   useEffect(() => {
     const onMouseUp = () => {
@@ -49,10 +50,10 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       "mouseup",
       onMouseUp
     );
-    iframeElementRef.current.contentDocument.addEventListener(
-      "scroll",
-      changePositionInside()
-    );
+    iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
+      changeButtonPosition(null);
+      console.log("scroll");
+    });
     return () => {
       iframeElementRef.current.contentDocument.removeEventListener(
         "mouseup",
@@ -61,16 +62,25 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
     };
   }, []);
 
-  if (!positionInside) {
+  useEffect(() => {
+    if (position) {
+      const buttonPosition = findAddButtonPosition(Array.from(position.client));
+      changeButtonPosition(buttonPosition);
+    } else {
+      changeButtonPosition(null);
+    }
+  }, [position]);
+
+  if (!buttonPosition) {
     return null;
   } else {
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"
-        onClick={() => addHighlightsClick(positionInside)}
+        onClick={() => addHighlightsClick(position)}
         style={{
-          left: positionInside.addButtonPosition.left,
-          top: positionInside.addButtonPosition.top - 20,
+          left: buttonPosition.left,
+          top: buttonPosition.top - 20,
           position: "absolute"
         }}
       >

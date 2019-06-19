@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
 
-function DisplayAnnotaion({ data }) {
-  console.log("data", data);
+function DisplayAnnotaion({ data, iframeElementRef }) {
+  const [iframePosition, changeIframePosition] = useState(null);
+  useEffect(() => {
+    iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
+      console.log(
+        "scroll inside annotation",
+        iframeElementRef.current.contentWindow.scrollY
+      );
+      changeIframePosition({
+        scrollY: iframeElementRef.current.contentWindow.scrollY,
+        scrollX: iframeElementRef.current.contentWindow.scrollX
+      });
+      //changeIframePosition(null)
+    });
+  }, []);
+
   let content = data.map((singleAnnotation, idOut) => {
-    console.log(singleAnnotation);
     return Array.from(singleAnnotation.client).map((rectangle, idIn) => {
-      console.log(rectangle.top);
       return (
         <div
           key={idOut + "c" + idIn}
           style={{
             position: "absolute",
             height: rectangle.height,
-            top: rectangle.top,
-            left: rectangle.left,
+            top: iframePosition
+              ? rectangle.top - iframePosition.scrollY
+              : rectangle.top,
+            left: iframePosition
+              ? rectangle.left - iframePosition.scrollX
+              : rectangle.left,
             width: rectangle.width,
             backgroundColor: "yellow",
             opacity: 0.2

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import ReactTextHighlight from "./react-text-highlighter/index";
@@ -8,7 +8,9 @@ function App() {
   const addHighlightsClick = value => {
     setHighighlight([...highlightData, value]);
   };
-
+  useEffect(() => {
+    console.log("highlightData", highlightData);
+  }, [highlightData]);
   return (
     <div className="app-container">
       <div className="left">left</div>
