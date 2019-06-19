@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
-  const [positionInside, setPositionInside] = useState(null);
+  const [positionInside, changePositionInside] = useState(null);
 
   const findAddButtonPosition = clientRectangleArray => {
     const neededIndex = 0;
@@ -15,11 +15,13 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
     return clientRectangleArray[neededIndex];
   };
 
-  const setPosition = value => {
+  const changePosition = value => {
     if (value) {
       // addHighlightsClick(value);//callback
       const addButtonPosition = findAddButtonPosition(Array.from(value.client));
-      setPositionInside({ ...value, addButtonPosition });
+      changePositionInside({ ...value, addButtonPosition });
+    } else {
+      changePositionInside(null);
     }
   };
 
@@ -33,19 +35,23 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
         range.insertNode(placeholderEl);
         const bounding = placeholderEl.getBoundingClientRect();
         const client = range.getClientRects();
-        setPosition({
+        changePosition({
           bounding,
           client,
           selectionText
         });
       } else {
-        setPosition(null);
+        changePosition(null);
       }
     };
 
     iframeElementRef.current.contentDocument.addEventListener(
       "mouseup",
       onMouseUp
+    );
+    iframeElementRef.current.contentDocument.addEventListener(
+      "scroll",
+      changePositionInside()
     );
     return () => {
       iframeElementRef.current.contentDocument.removeEventListener(

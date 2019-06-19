@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import ReactTextHighlight from "./react-text-highlighter/index";
 import { htmlContent } from "./const";
-
 function App() {
+  const [highlightData, setHighighlight] = useState([]);
   const addHighlightsClick = value => {
-    console.log("addHighlights from user", value);
+    setHighighlight([...highlightData, value]);
   };
 
   return (
@@ -19,7 +19,7 @@ function App() {
           srcDoc={htmlContent}
           height={600}
           width={500}
-          data={[]}
+          data={highlightData}
           addHighlightsClick={addHighlightsClick}
         />
       </div>
