@@ -1,9 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
+  const [positionInside, setPositionInside] = useState(null);
+
+  const findAddButtonPosition = clientRectangleArray => {
+    const neededIndex = 0;
+    const leastTop = clientRectangleArray[0].top;
+    clientRectangleArray.forEach((element, index) => {
+      if (clientRectangleArray[index].top < leastTop) {
+        neededIndex = index;
+        leastTop = clientRectangleArray[index].top;
+      }
+    });
+    return clientRectangleArray[neededIndex];
+  };
+
   const setPosition = value => {
     if (value) {
-      addHighlightsClick(value);
+      // addHighlightsClick(value);//callback
+      const addButtonPosition = findAddButtonPosition(Array.from(value.client));
+      setPositionInside({ ...value, addButtonPosition });
     }
   };
 
@@ -38,11 +54,24 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       );
     };
   }, []);
-  return (
-    <div className="react-text-highlighter-add-hightlight-button">
-      Add highlight
-    </div>
-  );
+
+  if (!positionInside) {
+    return null;
+  } else {
+    return (
+      <div
+        className="react-text-highlighter-add-hightlight-button"
+        onClick={() => addHighlightsClick(positionInside)}
+        style={{
+          left: positionInside.addButtonPosition.left,
+          top: positionInside.addButtonPosition.top - 20,
+          position: "absolute"
+        }}
+      >
+        Add highlight
+      </div>
+    );
+  }
 }
 
 export default AddHighlightButton;

@@ -6,7 +6,7 @@ import { htmlContent } from "./const";
 
 function App() {
   const addHighlightsClick = value => {
-    console.log("addHighlights", value);
+    console.log("addHighlights from user", value);
   };
 
   return (
