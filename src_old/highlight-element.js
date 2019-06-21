@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 
 const highlightRoot = document.getElementById("highlight-root");
 
-function HighlightElement({ position, addHighlight }) {
+function HighlightElement({ position, addHighlight, contentPositions }) {
   const containerEl = useRef(null);
   const highlightPopup = useRef(null);
   const [loading, setLoading] = useState(true);
   const [contentHeight, setContentHeight] = useState(0);
+
   useEffect(() => {
     containerEl.current = document.createElement("div");
     highlightRoot.appendChild(containerEl.current);
@@ -23,21 +24,29 @@ function HighlightElement({ position, addHighlight }) {
       setContentHeight(height);
     }
   }, [loading]);
+
+  const onAddButtonClick = () => {
+    let highlightRectangles = Array.from(position.client);
+    highlightRectangles.forEach(rectangle => {
+      rectangle.correctedTop = rectangle.top + contentPositions.scrollTop;
+      rectangle.correctedLeft = rectangle.left + contentPositions.scrollLeft;
+    });
+    addHighlight(highlightRectangles);
+  };
+
   if (containerEl.current) {
     return createPortal(
       <div
         style={{
-          position: "fixed",
-          top: position.bounding.y - contentHeight,
-          left: position.bounding.x,
+          position: "absolute",
+          top: position.bounding.y - contentHeight + contentPositions.offsetTop,
+          left: position.bounding.x + contentPositions.offsetLeft,
           opacity: !!contentHeight ? 1 : 0
         }}
         ref={highlightPopup}
       >
         <div style={{ backgroundColor: "red", padding: "0.5rem" }}>
-          <button onClick={() => addHighlight(position.client)}>
-            Add Highlight
-          </button>
+          <button onClick={onAddButtonClick}>Add Highlight</button>
         </div>
       </div>,
       containerEl.current

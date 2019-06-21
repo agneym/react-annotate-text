@@ -1,15 +1,16 @@
-body {
+.app-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.App {
-  font-family: sans-serif;
-  text-align: center;
-  width: 300px;
-  position: relative;
+.left {
+  width: 50vh;
+  height: 50vh;
+  background-color: gray;
 }
-
-.App p {
-  z-index: 2;
+.right {
+  width: 50vh;
+  height: 50vh;
+  /* background-color: antiquewhite; */
 }
