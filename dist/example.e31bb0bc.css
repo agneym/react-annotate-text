@@ -1,0 +1,29 @@
+.react-text-highlighter-container {
+  position: relative;
+}
+.react-text-highlighter-iframe {
+}
+.react-text-highlighter-add-hightlight-button {
+  width: 100px;
+  height: 20px;
+  background-color: red;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  width: 50vh;
+  height: 50vh;
+  background-color: gray;
+}
+.right {
+  width: 50vh;
+  height: 50vh;
+  /* background-color: antiquewhite; */
+}
+
+/*# sourceMappingURL=/example.e31bb0bc.css.map */

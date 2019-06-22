@@ -1,32 +1,48 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useRef } from "react";
+import AddHighlightButton from "./add-hightlight-button";
+import DisplayAnnotaions from "./display-annotation";
 import "./styles.css";
-import ReactTextHighlight from "./react-text-highlighter/index";
-import { htmlContent } from "./const";
-function App() {
-  const [highlightData, setHighighlight] = useState([]);
-  const addHighlightsClick = value => {
-    setHighighlight([...highlightData, value]);
-  };
-  useEffect(() => {
-    console.log("highlightData", highlightData);
-  }, [highlightData]);
+
+function ReactTextHighlight({
+  src,
+  srcDoc,
+  height,
+  width,
+  data,
+  addHighlightsClick
+}) {
+  const iframeElementRef = useRef(null);
   return (
-    <div className="app-container">
-      <div className="left">left</div>
-      <div className="right">
-        right
-        <ReactTextHighlight
-          //src={"http://sednaenergy.in/"}
-          srcDoc={htmlContent}
-          height={600}
-          width={500}
-          data={highlightData}
-          addHighlightsClick={addHighlightsClick}
-        />
-      </div>
+    <div
+      className="react-text-highlighter-container"
+      style={{
+        width: width,
+        height: height,
+        overflow: "hidden"
+      }}
+    >
+      <iframe
+        className={"react-text-highlighter-iframe"}
+        src={src}
+        srcDoc={srcDoc}
+        width={width}
+        height={height}
+        title={"my iframe"}
+        ref={iframeElementRef}
+        id="react-text-highlighter-iframe"
+      ></iframe>
+      <AddHighlightButton
+        addHighlightsClick={addHighlightsClick}
+        iframeElementRef={iframeElementRef}
+      />
+      <DisplayAnnotaions
+        data={data}
+        width={width}
+        height={height}
+        iframeElementRef={iframeElementRef}
+      />
     </div>
   );
 }
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+
+export default ReactTextHighlight;

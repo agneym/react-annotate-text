@@ -1,16 +1,10 @@
-.app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.react-text-highlighter-container {
+  position: relative;
 }
-
-.left {
-  width: 50vh;
-  height: 50vh;
-  background-color: gray;
+.react-text-highlighter-iframe {
 }
-.right {
-  width: 50vh;
-  height: 50vh;
-  /* background-color: antiquewhite; */
+.react-text-highlighter-add-hightlight-button {
+  width: 100px;
+  height: 20px;
+  background-color: red;
 }
