@@ -14,19 +14,15 @@ function App() {
     console.log("highlightData", highlightData);
   }, [highlightData]);
   return (
-    <div className="app-container">
-      <div className="left">left</div>
-      <div className="right">
-        right
-        <ReactTextHighlight
-          //src={"http://sednaenergy.in/"}
-          srcDoc={htmlContent}
-          height={600}
-          width={500}
-          data={highlightData}
-          addHighlightsClick={addHighlightsClick}
-        />
-      </div>
+    <div className="container">
+      <ReactTextHighlight
+        //src={"http://sednaenergy.in/"}
+        srcDoc={htmlContent}
+        height={600}
+        width={500}
+        data={highlightData}
+        addHighlightsClick={addHighlightsClick}
+      />
     </div>
   );
 }

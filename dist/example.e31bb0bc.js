@@ -33668,31 +33668,17 @@ object-assign
           return _react.default.createElement(
             "div",
             {
-              className: "app-container"
+              className: "container"
             },
             _react.default.createElement(
-              "div",
+              _index.default, //src={"http://sednaenergy.in/"}
               {
-                className: "left"
-              },
-              "left"
-            ),
-            _react.default.createElement(
-              "div",
-              {
-                className: "right"
-              },
-              "right",
-              _react.default.createElement(
-                _index.default, //src={"http://sednaenergy.in/"}
-                {
-                  srcDoc: _const.htmlContent,
-                  height: 600,
-                  width: 500,
-                  data: highlightData,
-                  addHighlightsClick: addHighlightsClick
-                }
-              )
+                srcDoc: _const.htmlContent,
+                height: 600,
+                width: 500,
+                data: highlightData,
+                addHighlightsClick: addHighlightsClick
+              }
             )
           );
         }
@@ -33745,7 +33731,7 @@ object-assign
           var hostname = "" || location.hostname;
           var protocol = location.protocol === "https:" ? "wss" : "ws";
           var ws = new WebSocket(
-            protocol + "://" + hostname + ":" + "50927" + "/"
+            protocol + "://" + hostname + ":" + "51132" + "/"
           );
 
           ws.onmessage = function(event) {

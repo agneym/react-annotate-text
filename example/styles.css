@@ -1,16 +1,5 @@
-.app-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.left {
-  width: 50vh;
-  height: 50vh;
-  background-color: gray;
-}
-.right {
-  width: 50vh;
-  height: 50vh;
-  /* background-color: antiquewhite; */
 }
