@@ -21,7 +21,11 @@ function App() {
         height={600}
         width={500}
         data={highlightData}
-        addHighlightsClick={addHighlightsClick}
+        highlightPopup={position => (
+          <button onClick={() => addHighlightsClick(position)}>
+            Add Highlight
+          </button>
+        )}
       />
     </div>
   );

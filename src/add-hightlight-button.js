@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
+function AddHighlightButton({
+  content: Content,
+  addHighlightsClick,
+  iframeElementRef
+}) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
   const [iframePosition, changeIframePosition] = useState(null);
@@ -83,6 +87,7 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
   if (!buttonPosition) {
     return null;
   } else {
+    console.log(Content(position));
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"
@@ -93,7 +98,7 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
           position: "absolute"
         }}
       >
-        Add highlight
+        {Content(position)}
       </div>
     );
   }
