@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function AddHighlightButton({
-  content: Content,
-  addHighlightsClick,
-  iframeElementRef
-}) {
+function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
   const [iframePosition, changeIframePosition] = useState(null);
@@ -30,7 +26,6 @@ function AddHighlightButton({
         ? item.left + iframePosition.scrollX
         : item.left;
     });
-    addHighlightsClick(position);
   };
 
   const onScrollHandler = () => {

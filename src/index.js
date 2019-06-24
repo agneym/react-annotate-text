@@ -33,7 +33,6 @@ function ReactTextHighlight({
       ></iframe>
       <AddHighlightButton
         content={highlightPopup}
-        addHighlightsClick={() => {}}
         iframeElementRef={iframeElementRef}
       />
       <DisplayAnnotaions
