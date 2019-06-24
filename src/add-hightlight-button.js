@@ -64,18 +64,11 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       );
       iframeElementRef.current.contentDocument.addEventListener(
         "scroll",
-        () => {
-          onScrollHandler();
-        }
+        onScrollHandler
       );
     });
 
-    return () => {
-      iframeElementRef.current.contentDocument.removeEventListener(
-        "mouseup",
-        onMouseUp
-      );
-    };
+    return () => {};
   }, []);
 
   useEffect(() => {

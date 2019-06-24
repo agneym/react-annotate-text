@@ -39,17 +39,6 @@ function DisplayAnnotaion({ data, iframeElementRef }) {
       );
     });
   });
-  return (
-    <div
-      style={
-        {
-          // height:height,
-          // width:width
-        }
-      }
-    >
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 }
 export default DisplayAnnotaion;
