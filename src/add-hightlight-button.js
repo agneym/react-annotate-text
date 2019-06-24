@@ -57,13 +57,19 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       }
     };
 
-    iframeElementRef.current.contentDocument.addEventListener(
-      "mouseup",
-      onMouseUp
-    );
-    iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
-      onScrollHandler();
+    iframeElementRef.current.addEventListener("load", () => {
+      iframeElementRef.current.contentDocument.addEventListener(
+        "mouseup",
+        onMouseUp
+      );
+      iframeElementRef.current.contentDocument.addEventListener(
+        "scroll",
+        () => {
+          onScrollHandler();
+        }
+      );
     });
+
     return () => {
       iframeElementRef.current.contentDocument.removeEventListener(
         "mouseup",

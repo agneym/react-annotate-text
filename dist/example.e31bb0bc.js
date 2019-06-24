@@ -33107,16 +33107,18 @@ object-assign
               }
             };
 
-            iframeElementRef.current.contentDocument.addEventListener(
-              "mouseup",
-              onMouseUp
-            );
-            iframeElementRef.current.contentDocument.addEventListener(
-              "scroll",
-              function() {
-                onScrollHandler();
-              }
-            );
+            iframeElementRef.current.addEventListener("load", function() {
+              iframeElementRef.current.contentDocument.addEventListener(
+                "mouseup",
+                onMouseUp
+              );
+              iframeElementRef.current.contentDocument.addEventListener(
+                "scroll",
+                function() {
+                  onScrollHandler();
+                }
+              );
+            });
             return function() {
               iframeElementRef.current.contentDocument.removeEventListener(
                 "mouseup",
@@ -33254,15 +33256,17 @@ object-assign
             changeIframePosition = _useState2[1];
 
           (0, _react.useEffect)(function() {
-            iframeElementRef.current.contentDocument.addEventListener(
-              "scroll",
-              function() {
-                changeIframePosition({
-                  scrollY: iframeElementRef.current.contentWindow.scrollY,
-                  scrollX: iframeElementRef.current.contentWindow.scrollX
-                });
-              }
-            );
+            iframeElementRef.current.addEventListener("load", function() {
+              iframeElementRef.current.contentDocument.addEventListener(
+                "scroll",
+                function() {
+                  changeIframePosition({
+                    scrollY: iframeElementRef.current.contentWindow.scrollY,
+                    scrollX: iframeElementRef.current.contentWindow.scrollX
+                  });
+                }
+              );
+            });
           }, []);
           var content = data.map(function(singleAnnotation, idOut) {
             return Array.from(singleAnnotation.client).map(function(
