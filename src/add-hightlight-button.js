@@ -38,6 +38,7 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
 
   useEffect(() => {
     const onMouseUp = () => {
+      console.log("mouse up triggered");
       const selection = iframeElementRef.current.contentWindow.getSelection();
       const selectionText = selection.toString();
       if (selectionText) {
@@ -56,16 +57,14 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
       }
     };
 
-    iframeElementRef.current.addEventListener("load", () => {
-      iframeElementRef.current.contentDocument.addEventListener(
-        "mouseup",
-        onMouseUp
-      );
-      iframeElementRef.current.contentDocument.addEventListener(
-        "scroll",
-        onScrollHandler
-      );
-    });
+    iframeElementRef.current.contentDocument.addEventListener(
+      "mouseup",
+      onMouseUp
+    );
+    iframeElementRef.current.contentDocument.addEventListener(
+      "scroll",
+      onScrollHandler
+    );
 
     return () => {};
   }, []);
@@ -82,7 +81,6 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
   if (!buttonPosition) {
     return null;
   } else {
-    console.log(Content(position));
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"

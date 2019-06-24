@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import ReactTextHighlight from "../src/index";
+var nanoId = require("nano-id");
 
+import ReactTextHighlight from "../src/index";
 import { htmlContent } from "./const";
 import "./styles.css";
 
 function App() {
   const [highlightData, setHighighlight] = useState([]);
   const addHighlightsClick = value => {
-    setHighighlight([...highlightData, value]);
+    setHighighlight([...highlightData, { ...value, id: nanoId() }]);
   };
-  useEffect(() => {
-    console.log("highlightData", highlightData);
-  }, [highlightData]);
+  const removeHighlight = value => {};
+
+  useEffect(() => {}, [highlightData]);
   return (
     <div className="container">
       <ReactTextHighlight
@@ -24,6 +25,11 @@ function App() {
         highlightPopup={position => (
           <button onClick={() => addHighlightsClick(position)}>
             Add Highlight
+          </button>
+        )}
+        annotationPopup={position => (
+          <button onClick={() => removeHighlight(position)}>
+            Remove Highlight
           </button>
         )}
       />

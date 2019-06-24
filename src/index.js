@@ -11,6 +11,7 @@ function ReactTextHighlight({
   data,
   highlightPopup
 }) {
+  console.log("data", data);
   const iframeElementRef = useRef(null);
   return (
     <div

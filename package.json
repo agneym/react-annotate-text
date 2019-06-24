@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "nano-id": "^1.1.0",
     "rangeblock": "1.2.0",
     "react": "16.8.6",
     "react-dom": "16.8.6"
