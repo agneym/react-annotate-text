@@ -27,7 +27,8 @@ function DisplayAnnotaion({ data, iframeElementRef }) {
               : rectangle.correctedLeft,
             width: rectangle.width,
             backgroundColor: "yellow",
-            opacity: 0.2
+            opacity: 1,
+            zIndex: -1
           }}
         ></div>
       );
