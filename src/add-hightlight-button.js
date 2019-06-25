@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { findButtonPosition } from "./functions";
 
-function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
+function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
   const [iframePosition, changeIframePosition] = useState(null);
-
-  const findAddButtonPosition = clientRectangleArray => {
-    let neededIndex = 0;
-    let leastTop = clientRectangleArray[0].top;
-    clientRectangleArray.forEach((element, index) => {
-      if (element.top < leastTop) {
-        neededIndex = index;
-        leastTop = clientRectangleArray[index].top;
-      }
-    });
-    return clientRectangleArray[neededIndex];
-  };
-
+  const [buttonDimensions, changeButtonDimensions] = useState(null);
+  const addButton = useRef(null);
   const addButtonClick = () => {
+    changeButtonPosition(null);
     Array.from(position.client).forEach(item => {
       item.correctedTop = iframePosition
         ? item.top + iframePosition.scrollY
@@ -26,10 +17,9 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
         ? item.left + iframePosition.scrollX
         : item.left;
     });
-    addHighlightsClick(position);
   };
-
   const onScrollHandler = () => {
+    console.log("on scroll");
     changeButtonPosition(null);
     changeIframePosition({
       scrollY: iframeElementRef.current.contentWindow.scrollY,
@@ -39,16 +29,13 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
 
   useEffect(() => {
     const onMouseUp = () => {
+      console.log("mouse up");
       const selection = iframeElementRef.current.contentWindow.getSelection();
       const selectionText = selection.toString();
       if (selectionText) {
         const range = selection.getRangeAt(0);
-        const placeholderEl = document.createElement("span");
-        range.insertNode(placeholderEl);
-        const bounding = placeholderEl.getBoundingClientRect();
         const client = range.getClientRects();
         changePosition({
-          bounding,
           client,
           selectionText
         });
@@ -57,44 +44,58 @@ function AddHighlightButton({ addHighlightsClick, iframeElementRef }) {
       }
     };
 
-    iframeElementRef.current.contentDocument.addEventListener(
-      "mouseup",
-      onMouseUp
-    );
-    iframeElementRef.current.contentDocument.addEventListener("scroll", () => {
-      onScrollHandler();
-    });
-    return () => {
-      iframeElementRef.current.contentDocument.removeEventListener(
+    iframeElementRef.current.addEventListener("load", () => {
+      console.log("contentDocument", iframeElementRef.current.contentDocument);
+      iframeElementRef.current.contentDocument.addEventListener(
         "mouseup",
         onMouseUp
       );
-    };
+      iframeElementRef.current.contentDocument.addEventListener(
+        "scroll",
+        onScrollHandler
+      );
+    });
+    return () => {};
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect");
+    if (addButton.current && !buttonDimensions) {
+      const height = addButton.current.offsetHeight;
+      console.log("height", height);
+      changeButtonDimensions(height);
+    }
   }, []);
 
   useEffect(() => {
     if (position) {
-      const buttonPosition = findAddButtonPosition(Array.from(position.client));
+      const buttonPosition = findButtonPosition(Array.from(position.client));
       changeButtonPosition(buttonPosition);
     } else {
+      console.log("use effect ", position);
       changeButtonPosition(null);
     }
   }, [position]);
 
   if (!buttonPosition) {
-    return null;
+    console.log("no");
+    return <div ref={addButton}>{Content(position)}</div>;
   } else {
+    console.log("yes");
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"
         onClick={addButtonClick}
         style={{
           left: buttonPosition.left,
-          top: buttonPosition.top - 20,
-          position: "absolute"
+          top: buttonDimensions
+            ? buttonPosition.top - buttonDimensions
+            : buttonPosition.top,
+          position: "absolute",
+          zIndex: 1
         }}
       >
-        Add highlight
+        {Content(position)}
       </div>
     );
   }

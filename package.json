@@ -5,11 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "prop-types": "15.7.2",
+    "nano-id": "^1.1.0",
     "rangeblock": "1.2.0",
     "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "3.0.1"
+    "react-dom": "16.8.6"
   },
   "devDependencies": {
     "husky": "^2.4.1",
@@ -18,10 +17,7 @@
     "typescript": "3.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "parcel example/index.html"
   },
   "browserslist": [
     ">0.2%",

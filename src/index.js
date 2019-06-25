@@ -1,32 +1,47 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import "./styles.css";
-import ReactTextHighlight from "./react-text-highlighter/index";
-import { htmlContent } from "./const";
-function App() {
-  const [highlightData, setHighighlight] = useState([]);
-  const addHighlightsClick = value => {
-    setHighighlight([...highlightData, value]);
-  };
-  useEffect(() => {
-    console.log("highlightData", highlightData);
-  }, [highlightData]);
+import React, { useRef } from "react";
+import AddHighlightButton from "./add-hightlight-button";
+import DisplayAnnotaions from "./display-annotation";
+
+function ReactTextHighlight({
+  src,
+  srcDoc,
+  height,
+  width,
+  data,
+  highlightPopup,
+  annotationPopup
+}) {
+  const iframeElementRef = useRef(null);
   return (
-    <div className="app-container">
-      <div className="left">left</div>
-      <div className="right">
-        right
-        <ReactTextHighlight
-          //src={"http://sednaenergy.in/"}
-          srcDoc={htmlContent}
-          height={600}
-          width={500}
-          data={highlightData}
-          addHighlightsClick={addHighlightsClick}
-        />
-      </div>
+    <div
+      style={{
+        width: width,
+        height: height,
+        overflow: "hidden",
+        position: "relative"
+      }}
+    >
+      <iframe
+        src={src}
+        srcDoc={srcDoc}
+        width={width}
+        height={height}
+        title={"my iframe"}
+        ref={iframeElementRef}
+      ></iframe>
+      <AddHighlightButton
+        content={highlightPopup}
+        iframeElementRef={iframeElementRef}
+      />
+      <DisplayAnnotaions
+        data={data}
+        width={width}
+        height={height}
+        iframeElementRef={iframeElementRef}
+        annotationPopup={annotationPopup}
+      />
     </div>
   );
 }
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+
+export default ReactTextHighlight;
