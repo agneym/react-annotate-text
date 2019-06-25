@@ -32,7 +32,12 @@ function App() {
         data={highlightData}
         highlightPopup={position => (
           <button
-            style={{ backgroundColor: "red", cursor: "pointer" }}
+            style={{
+              backgroundColor: "red",
+              cursor: "pointer",
+              height: 40,
+              width: 120
+            }}
             onClick={() => addHighlightClick(position)}
           >
             Add Highlight
@@ -40,7 +45,12 @@ function App() {
         )}
         annotationPopup={id => (
           <button
-            style={{ backgroundColor: "red", cursor: "pointer" }}
+            style={{
+              backgroundColor: "red",
+              cursor: "pointer",
+              height: 40,
+              width: 120
+            }}
             onClick={() => removeHighlightClick(id)}
           >
             Remove Highlight

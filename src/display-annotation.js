@@ -6,7 +6,7 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
   const [hoverButtonValue, changeHoverButtonValue] = useState(null);
 
   useEffect(() => {
-    if (iframeElementRef.current.contentDocument) {
+    iframeElementRef.current.addEventListener("load", () => {
       iframeElementRef.current.contentDocument.addEventListener(
         "scroll",
         () => {
@@ -21,9 +21,7 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
       iframeElementRef.current.contentDocument.addEventListener("click", () => {
         changeHoverButtonValue(null);
       });
-    } else {
-      console.log("Iframe not loaded");
-    }
+    });
   }, []);
 
   const onMouseOver = id => {

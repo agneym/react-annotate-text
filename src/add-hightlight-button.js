@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { findButtonPosition } from "./functions";
 
 function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
   const [iframePosition, changeIframePosition] = useState(null);
-
+  const [buttonDimensions, changeButtonDimensions] = useState(null);
+  const addButton = useRef(null);
   const addButtonClick = () => {
     changeButtonPosition(null);
     Array.from(position.client).forEach(item => {
@@ -17,8 +18,8 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
         : item.left;
     });
   };
-
   const onScrollHandler = () => {
+    console.log("on scroll");
     changeButtonPosition(null);
     changeIframePosition({
       scrollY: iframeElementRef.current.contentWindow.scrollY,
@@ -28,6 +29,7 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
 
   useEffect(() => {
     const onMouseUp = () => {
+      console.log("mouse up");
       const selection = iframeElementRef.current.contentWindow.getSelection();
       const selectionText = selection.toString();
       if (selectionText) {
@@ -41,7 +43,9 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
         changePosition(null);
       }
     };
-    if (iframeElementRef.current.contentDocument) {
+
+    iframeElementRef.current.addEventListener("load", () => {
+      console.log("contentDocument", iframeElementRef.current.contentDocument);
       iframeElementRef.current.contentDocument.addEventListener(
         "mouseup",
         onMouseUp
@@ -50,10 +54,17 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
         "scroll",
         onScrollHandler
       );
-    } else {
-      console.log("Iframe not loaded");
-    }
+    });
     return () => {};
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect");
+    if (addButton.current && !buttonDimensions) {
+      const height = addButton.current.offsetHeight;
+      console.log("height", height);
+      changeButtonDimensions(height);
+    }
   }, []);
 
   useEffect(() => {
@@ -61,20 +72,25 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
       const buttonPosition = findButtonPosition(Array.from(position.client));
       changeButtonPosition(buttonPosition);
     } else {
+      console.log("use effect ", position);
       changeButtonPosition(null);
     }
   }, [position]);
 
   if (!buttonPosition) {
-    return null;
+    console.log("no");
+    return <div ref={addButton}>{Content(position)}</div>;
   } else {
+    console.log("yes");
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"
         onClick={addButtonClick}
         style={{
           left: buttonPosition.left,
-          top: buttonPosition.top - 20,
+          top: buttonDimensions
+            ? buttonPosition.top - buttonDimensions
+            : buttonPosition.top,
           position: "absolute",
           zIndex: 1
         }}
