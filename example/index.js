@@ -22,7 +22,6 @@ function App() {
     });
   };
 
-  useEffect(() => {}, [highlightData]);
   return (
     <div className="container">
       <ReactTextHighlight

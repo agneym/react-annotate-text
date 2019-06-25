@@ -1,9 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { findButtonPosition } from "./functions";
 
 function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
   const [iframePosition, changeIframePosition] = useState(null);
   const [hoverButtonValue, changeHoverButtonValue] = useState(null);
+  const [buttonDimensions, changeButtonDimensions] = useState(null);
+  const hoverButton = useRef(null);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect");
+    if (hoverButton.current && !buttonDimensions) {
+      const height = hoverButton.current.offsetHeight;
+      console.log("height", height);
+      changeButtonDimensions(height);
+    }
+  }, []);
 
   useEffect(() => {
     iframeElementRef.current.addEventListener("load", () => {
@@ -39,15 +50,17 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
       const buttonPosition = findButtonPosition(
         Array.from(hoveredAnnotaion.client)
       );
-
+      console.log("buttonDimensions", buttonDimensions);
       return (
         <div
           onClick={onClick}
           style={{
             position: "absolute",
             top: iframePosition
-              ? buttonPosition.correctedTop - iframePosition.scrollY
-              : buttonPosition.top - 20,
+              ? buttonPosition.correctedTop -
+                iframePosition.scrollY -
+                buttonDimensions
+              : buttonPosition.top - buttonDimensions,
             left: iframePosition
               ? buttonPosition.correctedLeft - iframePosition.scrollX
               : buttonPosition.left,
@@ -58,7 +71,7 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
         </div>
       );
     } else {
-      return null;
+      return <div ref={hoverButton}>{annotationPopup(hoverButtonValue)}</div>;
     }
   };
 
