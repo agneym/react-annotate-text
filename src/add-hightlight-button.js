@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { findButtonPosition } from "./functions";
 
 function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
   const [buttonPosition, changeButtonPosition] = useState(null);
   const [iframePosition, changeIframePosition] = useState(null);
-
-  const findAddButtonPosition = clientRectangleArray => {
-    let neededIndex = 0;
-    let leastTop = clientRectangleArray[0].top;
-    clientRectangleArray.forEach((element, index) => {
-      if (element.top < leastTop) {
-        neededIndex = index;
-        leastTop = clientRectangleArray[index].top;
-      }
-    });
-    return clientRectangleArray[neededIndex];
-  };
 
   const addButtonClick = () => {
     Array.from(position.client).forEach(item => {
@@ -38,17 +27,12 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
 
   useEffect(() => {
     const onMouseUp = () => {
-      console.log("mouse up triggered");
       const selection = iframeElementRef.current.contentWindow.getSelection();
       const selectionText = selection.toString();
       if (selectionText) {
         const range = selection.getRangeAt(0);
-        const placeholderEl = document.createElement("span");
-        range.insertNode(placeholderEl);
-        const bounding = placeholderEl.getBoundingClientRect();
         const client = range.getClientRects();
         changePosition({
-          bounding,
           client,
           selectionText
         });
@@ -56,22 +40,24 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
         changePosition(null);
       }
     };
-
-    iframeElementRef.current.contentDocument.addEventListener(
-      "mouseup",
-      onMouseUp
-    );
-    iframeElementRef.current.contentDocument.addEventListener(
-      "scroll",
-      onScrollHandler
-    );
-
+    if (iframeElementRef.current.contentDocument) {
+      iframeElementRef.current.contentDocument.addEventListener(
+        "mouseup",
+        onMouseUp
+      );
+      iframeElementRef.current.contentDocument.addEventListener(
+        "scroll",
+        onScrollHandler
+      );
+    } else {
+      console.log("Iframe not loaded");
+    }
     return () => {};
   }, []);
 
   useEffect(() => {
     if (position) {
-      const buttonPosition = findAddButtonPosition(Array.from(position.client));
+      const buttonPosition = findButtonPosition(Array.from(position.client));
       changeButtonPosition(buttonPosition);
     } else {
       changeButtonPosition(null);

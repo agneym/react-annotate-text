@@ -9,7 +9,8 @@ function ReactTextHighlight({
   height,
   width,
   data,
-  highlightPopup
+  highlightPopup,
+  annotationPopup
 }) {
   console.log("data", data);
   const iframeElementRef = useRef(null);
@@ -41,6 +42,7 @@ function ReactTextHighlight({
         width={width}
         height={height}
         iframeElementRef={iframeElementRef}
+        annotationPopup={annotationPopup}
       />
     </div>
   );

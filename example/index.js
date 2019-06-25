@@ -7,28 +7,36 @@ import { htmlContent } from "./const";
 import "./styles.css";
 
 function App() {
-  const [highlightData, setHighighlight] = useState([]);
-  const addHighlightsClick = value => {
-    setHighighlight([...highlightData, { ...value, id: nanoId() }]);
+  const [highlightData, setHighlightData] = useState([]);
+
+  const addHighlightClick = value => {
+    setHighlightData([...highlightData, { ...value, id: nanoId() }]);
   };
-  const removeHighlight = value => {};
+
+  const removeHighlightClick = id => {
+    console.log("id", id);
+    setHighlightData(previousHighlightData => {
+      return previousHighlightData.filter(
+        highlightData => highlightData.id !== id
+      );
+    });
+  };
 
   useEffect(() => {}, [highlightData]);
   return (
     <div className="container">
       <ReactTextHighlight
-        //src={"http://sednaenergy.in/"}
         srcDoc={htmlContent}
         height={600}
         width={500}
         data={highlightData}
         highlightPopup={position => (
-          <button onClick={() => addHighlightsClick(position)}>
+          <button onClick={() => addHighlightClick(position)}>
             Add Highlight
           </button>
         )}
-        annotationPopup={position => (
-          <button onClick={() => removeHighlight(position)}>
+        annotationPopup={id => (
+          <button onClick={() => removeHighlightClick(id)}>
             Remove Highlight
           </button>
         )}
