@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { findButtonPosition } from "./functions";
+import { findButtonPosition } from "./functions/findButtonPosition.js";
 
 function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
