@@ -8,25 +8,21 @@ import "./styles.css";
 
 function App() {
   const [highlightData, setHighlightData] = useState([]);
-
   const addHighlightClick = value => {
     setHighlightData([...highlightData, { ...value, id: nanoId() }]);
   };
-
   const removeHighlightClick = id => {
-    console.log("remove click id", id);
     setHighlightData(previousHighlightData => {
       return previousHighlightData.filter(
         highlightData => highlightData.id !== id
       );
     });
   };
-
-  useEffect(() => {}, [highlightData]);
   return (
     <div className="container">
       <ReactTextHighlight
         srcDoc={htmlContent}
+        iframeTitle={"Demo"}
         height={600}
         width={500}
         data={highlightData}
@@ -48,7 +44,7 @@ function App() {
             style={{
               backgroundColor: "red",
               cursor: "pointer",
-              height: 40,
+              height: 70,
               width: 120
             }}
             onClick={() => removeHighlightClick(id)}
