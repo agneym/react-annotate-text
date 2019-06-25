@@ -17,6 +17,10 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
           });
         }
       );
+
+      iframeElementRef.current.contentDocument.addEventListener("click", () => {
+        changeHoverButtonValue(null);
+      });
     } else {
       console.log("Iframe not loaded");
     }
@@ -25,21 +29,24 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
   const onMouseOver = id => {
     changeHoverButtonValue(id);
   };
-
   const onClick = () => {
     changeHoverButtonValue(null);
   };
+
   const displayHoverButton = () => {
     if (hoverButtonValue) {
+      console.log("hoverButtonValue", hoverButtonValue);
       const hoveredAnnotaion = data.find(item => {
         return item.id === hoverButtonValue;
       });
+      console.log("hoveredAnnotaion", hoveredAnnotaion);
       const buttonPosition = findButtonPosition(
         Array.from(hoveredAnnotaion.client)
       );
 
       return (
         <div
+          onClick={onClick}
           style={{
             position: "absolute",
             top: iframePosition
@@ -76,8 +83,7 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
                 : rectangle.correctedLeft,
               width: rectangle.width,
               backgroundColor: "none",
-              opacity: 1,
-              zIndex: 1
+              opacity: 1
             }}
           ></div>
           <div
@@ -102,7 +108,7 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
     });
   });
   return (
-    <div className="annotations" onClick={onClick}>
+    <div className="annotations">
       {content}
       {displayHoverButton()}
     </div>

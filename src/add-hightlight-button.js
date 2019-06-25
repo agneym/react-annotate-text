@@ -7,6 +7,7 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [iframePosition, changeIframePosition] = useState(null);
 
   const addButtonClick = () => {
+    changeButtonPosition(null);
     Array.from(position.client).forEach(item => {
       item.correctedTop = iframePosition
         ? item.top + iframePosition.scrollY
