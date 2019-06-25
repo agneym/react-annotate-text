@@ -9,7 +9,8 @@ function ReactTextHighlight({
   width,
   data,
   highlightPopup,
-  annotationPopup
+  annotationPopup,
+  iframeTitle
 }) {
   const iframeElementRef = useRef(null);
   return (
@@ -26,7 +27,7 @@ function ReactTextHighlight({
         srcDoc={srcDoc}
         width={width}
         height={height}
-        title={"my iframe"}
+        title={iframeTitle}
         ref={iframeElementRef}
       ></iframe>
       <AddHighlightButton

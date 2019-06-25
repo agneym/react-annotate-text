@@ -8,11 +8,9 @@ import "./styles.css";
 
 function App() {
   const [highlightData, setHighlightData] = useState([]);
-
   const addHighlightClick = value => {
     setHighlightData([...highlightData, { ...value, id: nanoId() }]);
   };
-
   const removeHighlightClick = id => {
     setHighlightData(previousHighlightData => {
       return previousHighlightData.filter(
@@ -20,11 +18,11 @@ function App() {
       );
     });
   };
-
   return (
     <div className="container">
       <ReactTextHighlight
         srcDoc={htmlContent}
+        iframeTitle={"Demo"}
         height={600}
         width={500}
         data={highlightData}
