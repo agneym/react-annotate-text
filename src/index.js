@@ -15,15 +15,14 @@ function ReactTextHighlight({
   const iframeElementRef = useRef(null);
   return (
     <div
-      className="react-text-highlighter-container"
       style={{
         width: width,
         height: height,
-        overflow: "hidden"
+        overflow: "hidden",
+        position: "relative"
       }}
     >
       <iframe
-        className={"react-text-highlighter-iframe"}
         src={src}
         srcDoc={srcDoc}
         width={width}
