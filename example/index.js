@@ -14,7 +14,6 @@ function App() {
   };
 
   const removeHighlightClick = id => {
-    console.log("remove click id", id);
     setHighlightData(previousHighlightData => {
       return previousHighlightData.filter(
         highlightData => highlightData.id !== id
@@ -47,7 +46,7 @@ function App() {
             style={{
               backgroundColor: "red",
               cursor: "pointer",
-              height: 40,
+              height: 70,
               width: 120
             }}
             onClick={() => removeHighlightClick(id)}

@@ -19,33 +19,29 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
     });
   };
   const onScrollHandler = () => {
-    console.log("on scroll");
     changeButtonPosition(null);
     changeIframePosition({
       scrollY: iframeElementRef.current.contentWindow.scrollY,
       scrollX: iframeElementRef.current.contentWindow.scrollX
     });
   };
+  const onMouseUp = () => {
+    const selection = iframeElementRef.current.contentWindow.getSelection();
+    const selectionText = selection.toString();
+    if (selectionText) {
+      const range = selection.getRangeAt(0);
+      const client = range.getClientRects();
+      changePosition({
+        client,
+        selectionText
+      });
+    } else {
+      changePosition(null);
+    }
+  };
 
   useEffect(() => {
-    const onMouseUp = () => {
-      console.log("mouse up");
-      const selection = iframeElementRef.current.contentWindow.getSelection();
-      const selectionText = selection.toString();
-      if (selectionText) {
-        const range = selection.getRangeAt(0);
-        const client = range.getClientRects();
-        changePosition({
-          client,
-          selectionText
-        });
-      } else {
-        changePosition(null);
-      }
-    };
-
     iframeElementRef.current.addEventListener("load", () => {
-      console.log("contentDocument", iframeElementRef.current.contentDocument);
       iframeElementRef.current.contentDocument.addEventListener(
         "mouseup",
         onMouseUp
@@ -59,10 +55,8 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
   }, []);
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect");
     if (addButton.current && !buttonDimensions) {
       const height = addButton.current.offsetHeight;
-      console.log("height", height);
       changeButtonDimensions(height);
     }
   }, []);
@@ -72,16 +66,13 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
       const buttonPosition = findButtonPosition(Array.from(position.client));
       changeButtonPosition(buttonPosition);
     } else {
-      console.log("use effect ", position);
       changeButtonPosition(null);
     }
   }, [position]);
 
   if (!buttonPosition) {
-    console.log("no");
     return <div ref={addButton}>{Content(position)}</div>;
   } else {
-    console.log("yes");
     return (
       <div
         className="react-text-highlighter-add-hightlight-button"

@@ -8,10 +8,8 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
   const hoverButton = useRef(null);
 
   useLayoutEffect(() => {
-    console.log("useLayoutEffect");
     if (hoverButton.current && !buttonDimensions) {
       const height = hoverButton.current.offsetHeight;
-      console.log("height", height);
       changeButtonDimensions(height);
     }
   }, []);
@@ -50,7 +48,6 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
       const buttonPosition = findButtonPosition(
         Array.from(hoveredAnnotaion.client)
       );
-      console.log("buttonDimensions", buttonDimensions);
       return (
         <div
           onClick={onClick}
