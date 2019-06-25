@@ -75,7 +75,8 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
         style={{
           left: buttonPosition.left,
           top: buttonPosition.top - 20,
-          position: "absolute"
+          position: "absolute",
+          zIndex: 1
         }}
       >
         {Content(position)}

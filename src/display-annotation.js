@@ -54,7 +54,8 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
               : buttonPosition.top - 20,
             left: iframePosition
               ? buttonPosition.correctedLeft - iframePosition.scrollX
-              : buttonPosition.left
+              : buttonPosition.left,
+            zIndex: 1
           }}
         >
           {annotationPopup(hoverButtonValue)}
