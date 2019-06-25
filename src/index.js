@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import AddHighlightButton from "./add-hightlight-button";
 import DisplayAnnotaions from "./display-annotation";
-import "./styles.css";
 
 function ReactTextHighlight({
   src,
@@ -29,7 +28,6 @@ function ReactTextHighlight({
         height={height}
         title={"my iframe"}
         ref={iframeElementRef}
-        id="react-text-highlighter-iframe"
       ></iframe>
       <AddHighlightButton
         content={highlightPopup}
