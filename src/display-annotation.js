@@ -35,11 +35,9 @@ function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
 
   const displayHoverButton = () => {
     if (hoverButtonValue) {
-      console.log("hoverButtonValue", hoverButtonValue);
       const hoveredAnnotaion = data.find(item => {
         return item.id === hoverButtonValue;
       });
-      console.log("hoveredAnnotaion", hoveredAnnotaion);
       const buttonPosition = findButtonPosition(
         Array.from(hoveredAnnotaion.client)
       );

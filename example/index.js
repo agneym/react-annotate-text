@@ -14,7 +14,7 @@ function App() {
   };
 
   const removeHighlightClick = id => {
-    console.log("id", id);
+    console.log("remove click id", id);
     setHighlightData(previousHighlightData => {
       return previousHighlightData.filter(
         highlightData => highlightData.id !== id
