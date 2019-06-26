@@ -1,25 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import SelectionButton from "./selection-button";
+import Button from "./button";
+import Annotation from "./annotation";
 import { findButtonPosition } from "./functions/findButtonPosition";
 import { structureClientRectangle } from "./functions/structureClientRectangle";
-
 function ReactTextHighlight({
   src,
   srcDoc,
   height,
   width,
-  data,
+  highlightData,
   selectionPopup,
   hoverPopup,
   iframeTitle
 }) {
+  const iframeRef = useRef(null);
   const [currentSelectionData, changeCurrentSelectionData] = useState(null);
+  const [currentHoverData, changeCurrentHoverData] = useState(null);
   const [buttonData, changeButtonData] = useState(null);
   const [scrollPosition, changeScrollPosition] = useState({
     scrollY: 0,
     scrollX: 0
   });
-  const iframeRef = useRef(null);
 
   const onMouseUp = () => {
     const selection = iframeRef.current.contentWindow.getSelection();
@@ -50,48 +51,35 @@ function ReactTextHighlight({
       scrollX: iframeRef.current.contentWindow.scrollX
     });
   };
-  const onClick = () => {};
-  const renderButton = () => {
-    if (buttonData) {
-      if (buttonData.type === "select") {
-        return (
-          <SelectionButton
-            buttonData={buttonData}
-            scrollPosition={scrollPosition}
-            content={selectionPopup(currentSelectionData)}
-          />
-        );
-      } else if (buttonData.type === "hover") {
-        return null;
-        // <HoverButton
-        //   position={buttonData.position}
-        //   content={}
-        // />
-      }
-    } else {
-      return null;
+
+  const buttonContent = () => {
+    if (buttonData.type === "select") {
+      return selectionPopup(currentSelectionData);
+    } else if (buttonData.type === "hover") {
+      return hoverPopup(currentHoverData);
     }
   };
 
   useEffect(() => {
-    iframeRef.current.contentDocument.addEventListener("scroll", onScroll);
-    iframeRef.current.contentDocument.addEventListener("mouseup", onMouseUp);
-    iframeRef.current.contentDocument.addEventListener("click", onClick);
+    if (iframeRef.current) {
+      iframeRef.current.contentDocument.addEventListener("scroll", onScroll);
+      iframeRef.current.contentDocument.addEventListener("mouseup", onMouseUp);
+    }
     return () => {
       iframeRef.current.contentDocument.removeEventListener("scroll", onScroll);
       iframeRef.current.contentDocument.removeEventListener(
         "mouseup",
         onMouseUp
       );
-      iframeRef.current.contentDocument.removeEventListener("click", onClick);
     };
   }, [scrollPosition]);
 
   useEffect(() => {
-    // console.log("buttonPosition", buttonData);
-    console.log("use effect mount", scrollPosition);
+    //console.log("buttonData from useeffect", buttonData);
+    //console.log("use effect mount", scrollPosition);
     // console.log("currentSelectionData", currentSelectionData);
-  }, []);
+    console.log("highlightData useEffect", highlightData);
+  });
 
   return (
     <div
@@ -110,7 +98,20 @@ function ReactTextHighlight({
         title={iframeTitle}
         ref={iframeRef}
       ></iframe>
-      {renderButton()}
+      {highlightData.length && (
+        <Annotation
+          highlightData={highlightData}
+          scrollPosition={scrollPosition}
+          changeCurrentHoverData={changeCurrentHoverData}
+        />
+      )}
+      {buttonData && (
+        <Button
+          buttonData={buttonData}
+          scrollPosition={scrollPosition}
+          content={buttonContent()}
+        />
+      )}
     </div>
   );
 }

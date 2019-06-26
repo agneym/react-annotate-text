@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-var nanoId = require("nano-id");
-
 import ReactTextHighlight from "../src/index";
 import { htmlContent } from "./const";
 import "./styles.css";
+const nanoId = require("nano-id");
 
 function App() {
   const [highlightData, setHighlightData] = useState([]);
+
   const addHighlightClick = value => {
     setHighlightData([...highlightData, { ...value, id: nanoId() }]);
   };
+
   const removeHighlightClick = id => {
     setHighlightData(previousHighlightData => {
       return previousHighlightData.filter(
@@ -18,6 +19,11 @@ function App() {
       );
     });
   };
+
+  useEffect(() => {
+    console.log("highlightData", highlightData);
+  });
+
   return (
     <div className="container">
       <ReactTextHighlight
@@ -25,7 +31,7 @@ function App() {
         iframeTitle={"Demo"}
         height={600}
         width={500}
-        data={highlightData}
+        highlightData={highlightData}
         selectionPopup={position => (
           <button
             style={{

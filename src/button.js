@@ -1,6 +1,6 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
 
-function SelectionButton({ buttonData, scrollPosition, content }) {
+function Button({ buttonData, scrollPosition, content }) {
   const [buttonHeight, changeButtonHeight] = useState(null);
   const buttonRef = useRef(null);
 
@@ -25,4 +25,4 @@ function SelectionButton({ buttonData, scrollPosition, content }) {
     </div>
   );
 }
-export default SelectionButton;
+export default Button;
