@@ -21,6 +21,10 @@ function ReactTextHighlight({
   });
   const iframeRef = useRef(null);
 
+  const print = () => {
+    console.log("scrollPosition print", scrollPosition);
+  };
+
   const onMouseUp = () => {
     const selection = iframeRef.current.contentWindow.getSelection();
     const selectionText = selection.toString();
@@ -31,10 +35,18 @@ function ReactTextHighlight({
         clientRectangleArray,
         scrollPosition
       );
+      console.log(
+        "clientRectangleArray",
+        clientRectangleArray,
+        "position",
+        scrollPosition
+      );
+
       changeCurrentSelectionData({
         position,
         selectionText
       });
+      print();
       const buttonPosition = findButtonPosition(position);
       changeButtonData({ type: "select", position: buttonPosition });
     } else {
@@ -73,19 +85,24 @@ function ReactTextHighlight({
   };
 
   useEffect(() => {
-    iframeRef.current.addEventListener("load", () => {
-      console.log("load");
-      iframeRef.current.contentDocument.addEventListener("scroll", onScroll);
-      iframeRef.current.contentDocument.addEventListener("mouseup", onMouseUp);
-      iframeRef.current.contentDocument.addEventListener("click", onClick);
-    });
-  }, []);
+    iframeRef.current.contentDocument.addEventListener("scroll", onScroll);
+    iframeRef.current.contentDocument.addEventListener("mouseup", onMouseUp);
+    iframeRef.current.contentDocument.addEventListener("click", onClick);
+    return () => {
+      iframeRef.current.contentDocument.removeEventListener("scroll", onScroll);
+      iframeRef.current.contentDocument.removeEventListener(
+        "mouseup",
+        onMouseUp
+      );
+      iframeRef.current.contentDocument.removeEventListener("click", onClick);
+    };
+  }, [scrollPosition]);
 
   useEffect(() => {
-    console.log("buttonPosition", buttonData);
-    console.log("scrollPosition", scrollPosition);
-    console.log("currentSelectionData", currentSelectionData);
-  });
+    // console.log("buttonPosition", buttonData);
+    console.log("use effect mount", scrollPosition);
+    // console.log("currentSelectionData", currentSelectionData);
+  }, []);
 
   return (
     <div
