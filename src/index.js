@@ -21,34 +21,23 @@ function ReactTextHighlight({
   });
   const iframeRef = useRef(null);
 
-  const print = () => {
-    console.log("scrollPosition print", scrollPosition);
-  };
-
   const onMouseUp = () => {
     const selection = iframeRef.current.contentWindow.getSelection();
     const selectionText = selection.toString();
     if (selectionText) {
-      const range = selection.getRangeAt(0);
-      const clientRectangleArray = range.getClientRects();
+      const clientRectangleArray = selection.getRangeAt(0).getClientRects();
       const position = structureClientRectangle(
         clientRectangleArray,
         scrollPosition
       );
-      console.log(
-        "clientRectangleArray",
-        clientRectangleArray,
-        "position",
-        scrollPosition
-      );
-
       changeCurrentSelectionData({
         position,
         selectionText
       });
-      print();
-      const buttonPosition = findButtonPosition(position);
-      changeButtonData({ type: "select", position: buttonPosition });
+      changeButtonData({
+        type: "select",
+        position: findButtonPosition(position)
+      });
     } else {
       changeCurrentSelectionData(null);
       changeButtonData(null);
