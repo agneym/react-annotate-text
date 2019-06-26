@@ -1,8 +1,8 @@
-export const findButtonPosition = clientRectangleArray => {
-  return clientRectangleArray.reduce((least, item) => {
+export const findButtonPosition = position => {
+  return position.reduce((least, item) => {
     if (item.top < least.top) {
       least = item;
     }
-    return least;
-  }, clientRectangleArray[0]);
+    return { top: least.top, left: least.left };
+  }, position[0]);
 };

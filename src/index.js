@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import SelectionButton from "./selection-button";
 import { findButtonPosition } from "./functions/findButtonPosition";
+import { structureClientRectangle } from "./functions/structureClientRectangle";
 
 function ReactTextHighlight({
   src,
@@ -19,24 +20,29 @@ function ReactTextHighlight({
     scrollX: 0
   });
   const iframeRef = useRef(null);
+
   const onMouseUp = () => {
-    console.log("onMouseUp");
     const selection = iframeRef.current.contentWindow.getSelection();
     const selectionText = selection.toString();
     if (selectionText) {
       const range = selection.getRangeAt(0);
-      const client = range.getClientRects();
+      const clientRectangleArray = range.getClientRects();
+      const position = structureClientRectangle(
+        clientRectangleArray,
+        scrollPosition
+      );
       changeCurrentSelectionData({
-        client,
+        position,
         selectionText
       });
-      const buttonPosition = findButtonPosition(Array.from(client));
+      const buttonPosition = findButtonPosition(position);
       changeButtonData({ type: "select", position: buttonPosition });
     } else {
       changeCurrentSelectionData(null);
       changeButtonData(null);
     }
   };
+
   const onScroll = () => {
     changeScrollPosition({
       scrollY: iframeRef.current.contentWindow.scrollY,
