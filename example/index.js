@@ -26,7 +26,7 @@ function App() {
         height={600}
         width={500}
         data={highlightData}
-        highlightPopup={position => (
+        selectionPopup={position => (
           <button
             style={{
               backgroundColor: "red",
@@ -39,7 +39,7 @@ function App() {
             Add Highlight
           </button>
         )}
-        annotationPopup={id => (
+        hoverPopup={id => (
           <button
             style={{
               backgroundColor: "red",

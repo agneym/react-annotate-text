@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { findButtonPosition } from "./functions/findButtonPosition.js";
+import { findButtonPosition } from "../functions/findButtonPosition.js";
 
 function AddHighlightButton({ content: Content, iframeElementRef }) {
   const [position, changePosition] = useState(null);
@@ -75,7 +75,6 @@ function AddHighlightButton({ content: Content, iframeElementRef }) {
   } else {
     return (
       <div
-        className="react-text-highlighter-add-hightlight-button"
         onClick={addButtonClick}
         style={{
           left: buttonPosition.left,
