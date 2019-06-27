@@ -12,6 +12,7 @@ function Button({ buttonData, scrollPosition, content, onButtonClick }) {
 
   return (
     <div
+      className="button"
       onClick={onButtonClick}
       ref={buttonRef}
       style={{

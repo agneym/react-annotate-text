@@ -11,6 +11,7 @@ function Annotaion({ highlightData, scrollPosition, hoverChange }) {
         return (
           <div key={singleAnnotation.id + "_" + index}>
             <div
+              className="rectangle-not-visible"
               onMouseOver={() => onMouseOver(singleAnnotation.id)}
               id={singleAnnotation.id}
               style={{
@@ -24,6 +25,7 @@ function Annotaion({ highlightData, scrollPosition, hoverChange }) {
               }}
             ></div>
             <div
+              className="rectangle-visible"
               id={singleAnnotation.id}
               style={{
                 position: "absolute",
