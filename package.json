@@ -1,12 +1,17 @@
 {
   "name": "react-annotate-text",
   "version": "1.0.0",
-  "description": "Annotate HTML text",
-  "keywords": [],
+  "description": "Annotate text Content inside ifame",
+  "keywords": [
+    "annotate",
+    "text",
+    "html",
+    "react",
+    "iframe"
+  ],
   "main": "src/index.js",
   "dependencies": {
     "nano-id": "^1.1.0",
-    "rangeblock": "1.2.0",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
@@ -19,12 +24,6 @@
   "scripts": {
     "start": "parcel example/index.html"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
