@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
+import React from "react";
 
-function Annotaion({ highlightData, scrollPosition, changeCurrentHoverData }) {
-  console.log("highlightData Annotaion", highlightData);
+function Annotaion({ highlightData, scrollPosition, hoverChange }) {
   const onMouseOver = id => {
-    console.log(id);
-    //changeHoverButtonValue(id);
+    hoverChange(id);
   };
 
   const findAnnotations = () => {
@@ -13,6 +11,7 @@ function Annotaion({ highlightData, scrollPosition, changeCurrentHoverData }) {
         return (
           <div key={singleAnnotation.id + "_" + index}>
             <div
+              className="rectangle-not-visible"
               onMouseOver={() => onMouseOver(singleAnnotation.id)}
               id={singleAnnotation.id}
               style={{
@@ -26,6 +25,7 @@ function Annotaion({ highlightData, scrollPosition, changeCurrentHoverData }) {
               }}
             ></div>
             <div
+              className="rectangle-visible"
               id={singleAnnotation.id}
               style={{
                 position: "absolute",

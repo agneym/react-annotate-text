@@ -1,17 +1,19 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 
-function Button({ buttonData, scrollPosition, content }) {
+function Button({ buttonData, scrollPosition, content, onButtonClick }) {
   const [buttonHeight, changeButtonHeight] = useState(null);
   const buttonRef = useRef(null);
 
-  useLayoutEffect(() => {
-    if (buttonRef.current && !buttonHeight) {
+  useEffect(() => {
+    if (buttonRef.current) {
       changeButtonHeight(buttonRef.current.offsetHeight);
     }
-  }, []);
+  }, [buttonData.type]);
 
   return (
     <div
+      className="button"
+      onClick={onButtonClick}
       ref={buttonRef}
       style={{
         left: buttonData.position.left - scrollPosition.scrollX,
