@@ -1,5 +1,10 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { findButtonPosition } from "./functions/findButtonPosition.js";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect
+} from "./node_modules/react";
+import { findButtonPosition } from "./functions/findButtonPosition.js.js";
 
 function DisplayAnnotaion({ data, iframeElementRef, annotationPopup }) {
   const [iframePosition, changeIframePosition] = useState(null);
