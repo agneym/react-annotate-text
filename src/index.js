@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import Button from "./button";
 import Annotation from "./annotation";
-import { findButtonPosition } from "./functions/findButtonPosition";
+import { findSelectButtonPosition } from "./functions/findSelectButtonPosition";
 import { structureClientRectangle } from "./functions/structureClientRectangle";
+import { findHoverButtonPosition } from "./functions/findHoverButtonPosition";
+
 function ReactTextHighlight({
   src,
   srcDoc,
@@ -37,7 +39,7 @@ function ReactTextHighlight({
       });
       changeButtonData({
         type: "select",
-        position: findButtonPosition(position)
+        position: findSelectButtonPosition(position)
       });
     } else {
       changeCurrentSelectionData(null);
@@ -52,12 +54,37 @@ function ReactTextHighlight({
     });
   };
 
+  const onMouseLeave = () => {
+    changeCurrentHoverData(null);
+    changeButtonData(null);
+  };
+
   const buttonContent = () => {
     if (buttonData.type === "select") {
       return selectionPopup(currentSelectionData);
     } else if (buttonData.type === "hover") {
       return hoverPopup(currentHoverData);
     }
+  };
+
+  const hoverChange = hoveredId => {
+    console.log("id hovered is", hoveredId);
+    if (hoveredId) {
+      changeCurrentHoverData(hoveredId);
+      changeButtonData({
+        type: "hover",
+        position: findHoverButtonPosition(hoveredId, highlightData)
+      });
+    } else {
+      changeCurrentHoverData(null);
+      changeButtonData(null);
+    }
+  };
+
+  const onButtonClick = () => {
+    changeCurrentSelectionData(null);
+    changeCurrentHoverData(null);
+    changeButtonData(null);
   };
 
   useEffect(() => {
@@ -83,6 +110,7 @@ function ReactTextHighlight({
 
   return (
     <div
+      onMouseLeave={onMouseLeave}
       style={{
         width: width,
         height: height,
@@ -102,7 +130,7 @@ function ReactTextHighlight({
         <Annotation
           highlightData={highlightData}
           scrollPosition={scrollPosition}
-          changeCurrentHoverData={changeCurrentHoverData}
+          hoverChange={hoverChange}
         />
       )}
       {buttonData && (
@@ -110,6 +138,7 @@ function ReactTextHighlight({
           buttonData={buttonData}
           scrollPosition={scrollPosition}
           content={buttonContent()}
+          onButtonClick={onButtonClick}
         />
       )}
     </div>

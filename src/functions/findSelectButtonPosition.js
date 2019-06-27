@@ -1,4 +1,4 @@
-export const findButtonPosition = position => {
+export const findSelectButtonPosition = position => {
   return position.reduce((least, item) => {
     if (item.top < least.top) {
       least = item;
