@@ -42,8 +42,7 @@ function ReactTextHighlight({
         position: findSelectButtonPosition(position)
       });
     } else {
-      changeCurrentSelectionData(null);
-      changeButtonData(null);
+      clearButtonAndCurrentData();
     }
   };
 
@@ -52,11 +51,6 @@ function ReactTextHighlight({
       scrollY: iframeRef.current.contentWindow.scrollY,
       scrollX: iframeRef.current.contentWindow.scrollX
     });
-  };
-
-  const onMouseLeave = () => {
-    changeCurrentHoverData(null);
-    changeButtonData(null);
   };
 
   const buttonContent = () => {
@@ -76,12 +70,11 @@ function ReactTextHighlight({
         position: findHoverButtonPosition(hoveredId, highlightData)
       });
     } else {
-      changeCurrentHoverData(null);
-      changeButtonData(null);
+      clearButtonAndCurrentData();
     }
   };
 
-  const onButtonClick = () => {
+  const clearButtonAndCurrentData = () => {
     changeCurrentSelectionData(null);
     changeCurrentHoverData(null);
     changeButtonData(null);
@@ -105,12 +98,12 @@ function ReactTextHighlight({
     //console.log("buttonData from useeffect", buttonData);
     //console.log("use effect mount", scrollPosition);
     // console.log("currentSelectionData", currentSelectionData);
-    console.log("highlightData useEffect", highlightData);
+    // console.log("highlightData useEffect", highlightData);
   });
 
   return (
     <div
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={clearButtonAndCurrentData}
       style={{
         width: width,
         height: height,
@@ -138,7 +131,7 @@ function ReactTextHighlight({
           buttonData={buttonData}
           scrollPosition={scrollPosition}
           content={buttonContent()}
-          onButtonClick={onButtonClick}
+          onButtonClick={clearButtonAndCurrentData}
         />
       )}
     </div>
