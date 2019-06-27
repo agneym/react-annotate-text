@@ -62,7 +62,6 @@ function ReactTextHighlight({
   };
 
   const hoverChange = hoveredId => {
-    console.log("id hovered is", hoveredId);
     if (hoveredId) {
       changeCurrentHoverData(hoveredId);
       changeButtonData({
@@ -93,13 +92,6 @@ function ReactTextHighlight({
       );
     };
   }, [scrollPosition]);
-
-  useEffect(() => {
-    //console.log("buttonData from useeffect", buttonData);
-    //console.log("use effect mount", scrollPosition);
-    // console.log("currentSelectionData", currentSelectionData);
-    // console.log("highlightData useEffect", highlightData);
-  });
 
   return (
     <div
