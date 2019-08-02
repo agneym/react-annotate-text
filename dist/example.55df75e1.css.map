@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,WACE,YAAa,CACb,sBAAuB,CACvB,kBACF","file":"example.55df75e1.css","sourceRoot":"../example","sourcesContent":[".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n"]}
