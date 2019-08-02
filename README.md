@@ -1,4 +1,4 @@
-# usePip
+# react-annotate-text
 
 <a href="https://www.npmjs.com/package/react-annotate-text">
   <img src="https://img.shields.io/npm/v/react-annotate-text.svg" />
@@ -7,9 +7,9 @@
   <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
 </a>
 
-A custom React hook to use [Picture in Picture](https://wicg.github.io/picture-in-picture/) mode in [supported browsers](https://caniuse.com/#feat=picture-in-picture).
+A React library to highlight text.
 
-[Demo](https://boywithsilverwings.github.io/usePip)
+[Demo](https://howareyouami.github.io/react-annotate-text)
 
 ## Installation
 
@@ -29,6 +29,7 @@ const { loading, error, toggle } = usePip(videoRef);
 
 See example directory for complete code.
 
+<!--
 ### Parameters:
 
 | Parameter |        description        | required? | default |
@@ -61,4 +62,4 @@ npm run dev
 
 ```
 npm start
-```
+``` -->
