@@ -5,7 +5,7 @@ import { findSelectButtonPosition } from "./functions/findSelectButtonPosition";
 import { structureClientRectangle } from "./functions/structureClientRectangle";
 import { findHoverButtonPosition } from "./functions/findHoverButtonPosition";
 
-function ReactTextHighlight({
+function ReactAnnotateText({
   src,
   srcDoc,
   height,
@@ -130,4 +130,4 @@ function ReactTextHighlight({
   );
 }
 
-export default ReactTextHighlight;
+export default ReactAnnotateText;
