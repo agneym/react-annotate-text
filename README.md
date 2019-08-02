@@ -23,8 +23,6 @@ Feel free to replace with yarn counterparts.
 
 ```javascript
 import ReactAnnoteText from "react-annotate-text";
-
-const { loading, error, toggle } = usePip(videoRef);
 ```
 
 See example directory for complete code.
