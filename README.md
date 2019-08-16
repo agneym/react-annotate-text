@@ -7,7 +7,7 @@
   <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
 </a>
 
-A React library to highlight text.
+A custom react component for annotating text content inside an HTML
 
 [Demo](https://howareyouami.github.io/react-annotate-text)
 
