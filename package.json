@@ -1,5 +1,6 @@
 {
   "name": "react-annotate-text",
+  "description": "A custom react component for annotating text content inside an HTML",
   "version": "1.0.9",
   "keywords": [
     "annotate",
@@ -16,7 +17,6 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },
-  "description": "A custom react component for annotating text content inside an HTML",
   "repository": {
     "type": "git",
     "url": "https://github.com/howareyouami/react-annotate-text"
