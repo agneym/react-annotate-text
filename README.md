@@ -19,28 +19,30 @@ npm install react-annotate-text
 
 Feel free to replace with yarn counterparts.
 
-## Usage:
+## Usage
 
 ```javascript
 import ReactAnnoteText from "react-annotate-text";
 ```
 
+```javascript
+<ReactAnnotateText
+  srcDoc={htmlContent}
+  src={htmlURL}
+  iframeTitle={"Demo"}
+  height={600}
+  width={500}
+  highlightData={highlightData}
+  selectionPopup={position => (
+    <button onClick={() => addHighlightClick(position)}>Add Highlight</button>
+  )}
+  hoverPopup={id => (
+    <button onClick={() => removeHighlightClick(id)}>Remove Highlight</button>
+  )}
+/>
+```
+
 See example directory for complete code.
-
-<!--
-### Parameters:
-
-| Parameter |        description        | required? | default |
-| :-------: | :-----------------------: | :-------: | :-----: |
-| videoRef  | Ref for the video element |   true    |  null   |
-
-### Return:
-
-|  Name   |   Type   |                                                                           Description                                                                           |
-| :-----: | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| loading | boolean  |                                                     Manages loading time for setting for detecting support                                                      |
-|  error  |  string  | Error state as described by [spec](https://wicg.github.io/picture-in-picture/). Holds value `NotSupportedError` if browser or video does not support attribute. |
-| toggle  | function |                                                                toggles state of PiP in document                                                                 |
 
 ## Contributing
 
@@ -50,14 +52,14 @@ See example directory for complete code.
 npm install
 ```
 
-2. Run dev for lib
+2. Build lib
 
 ```
-npm run dev
+npm run transpile
 ```
 
 3. Run demo
 
 ```
 npm start
-``` -->
+```

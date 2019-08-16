@@ -1,31 +1,56 @@
 {
   "name": "react-annotate-text",
-  "version": "1.0.1",
-  "description": "Annotate text Content inside ifame",
+  "version": "1.0.9",
   "keywords": [
     "annotate",
     "text",
     "html",
     "react",
-    "iframe"
+    "iframe",
+    "highlight",
+    "content"
   ],
-  "main": "release/index.js",
-  "umd:main": "release/index.umd.js",
-  "source": "src/index.js",
-  "dependencies": {
-    "nano-id": "^1.1.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+  "main": "dist/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   },
+  "description": "A custom react component for annotating text content inside an HTML",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/howareyouami/react-annotate-text"
+  },
+  "homepage": "https://github.com/howareyouami/react-annotate-text#readme",
+  "author": "Amal Jose <amaljoseami@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
-    "gh-pages": "^2.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^3.2.0",
+    "gh-pages": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^2.4.1",
+    "nano-id": "^1.1.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.0",
-    "typescript": "3.3.3"
+    "style-loader": "^1.0.0",
+    "typescript": "3.3.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.8.0"
   },
   "scripts": {
-    "start": "parcel example/index.html"
+    "start": "webpack-dev-server --mode development --open",
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "npm run transpile",
+    "build": "webpack --mode production",
+    "deploy": "gh-pages -d examples/dist",
+    "publish-demo": "npm run build && npm run deploy"
   },
   "husky": {
     "hooks": {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import ReactAnnotateText from "../release/index.js";
+import ReactAnnotateText from "../../src/index";
 import { htmlContent } from "./const";
 import "./styles.css";
 const nanoId = require("nano-id");
