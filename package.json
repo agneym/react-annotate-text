@@ -1,7 +1,7 @@
 {
   "name": "react-annotate-text",
   "description": "A custom react component for annotating text content inside HTML",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "keywords": [
     "annotate",
     "text",
@@ -51,10 +51,9 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "transpile": "babel src -d dist --copy-files",
-    "prepublishOnly": "npm run transpile",
-    "build": "webpack --mode production",
-    "deploy": "gh-pages -d examples/dist",
-    "publish-demo": "npm run build && npm run deploy"
+    "build-example": "webpack --mode production",
+    "deploy-example": "gh-pages -d examples/dist",
+    "publish-example": "npm run build-example && npm run deploy-example"
   },
   "husky": {
     "hooks": {

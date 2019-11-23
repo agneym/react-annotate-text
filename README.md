@@ -52,13 +52,7 @@ See example directory for complete code.
 npm install
 ```
 
-2. Build lib
-
-```
-npm run transpile
-```
-
-3. Run demo
+2. Start development server
 
 ```
 npm start
