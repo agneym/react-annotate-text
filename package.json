@@ -19,10 +19,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/howareyouami/react-annotate-text"
+    "url": "https://github.com/agneym/react-annotate-text"
   },
-  "homepage": "https://github.com/howareyouami/react-annotate-text#readme",
-  "author": "Amal Jose <amaljoseami@gmail.com>",
+  "homepage": "https://github.com/agneym/react-annotate-text#readme",
+  "author": "Agney Menon <agney@outlook.in>",
+  "contributors": [
+    "Amal Jose A <amaljoseami@gmail.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
