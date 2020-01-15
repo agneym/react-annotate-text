@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 function Button({ buttonData, scrollPosition, content, onButtonClick }) {
   const [buttonHeight, changeButtonHeight] = useState(null);

@@ -5,7 +5,7 @@ import { findSelectButtonPosition } from "./functions/findSelectButtonPosition";
 import { structureClientRectangle } from "./functions/structureClientRectangle";
 import { findHoverButtonPosition } from "./functions/findHoverButtonPosition";
 
-function ReactTextHighlight({
+function ReactAnnotateText({
   src,
   srcDoc,
   height,
@@ -79,19 +79,27 @@ function ReactTextHighlight({
     changeButtonData(null);
   };
 
-  useEffect(() => {
+  const onIframeLoad = () => {
     if (iframeRef.current) {
       iframeRef.current.contentDocument.addEventListener("scroll", onScroll);
       iframeRef.current.contentDocument.addEventListener("mouseup", onMouseUp);
     }
+  };
+
+  useEffect(() => {
     return () => {
-      iframeRef.current.contentDocument.removeEventListener("scroll", onScroll);
-      iframeRef.current.contentDocument.removeEventListener(
-        "mouseup",
-        onMouseUp
-      );
+      if (iframeRef && iframeRef.current && iframeRef.current.contentDocument) {
+        iframeRef.current.contentDocument.removeEventListener(
+          "scroll",
+          onScroll
+        );
+        iframeRef.current.contentDocument.removeEventListener(
+          "mouseup",
+          onMouseUp
+        );
+      }
     };
-  }, [scrollPosition]);
+  }, []);
 
   return (
     <div
@@ -110,6 +118,7 @@ function ReactTextHighlight({
         height={height}
         title={iframeTitle}
         ref={iframeRef}
+        onLoad={onIframeLoad}
       ></iframe>
       {highlightData.length && (
         <Annotation
@@ -130,4 +139,4 @@ function ReactTextHighlight({
   );
 }
 
-export default ReactTextHighlight;
+export default ReactAnnotateText;

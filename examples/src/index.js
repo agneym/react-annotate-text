@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import ReactTextHighlight from "../src/index";
+import ReactAnnotateText from "../../src/index";
 import { htmlContent } from "./const";
 import "./styles.css";
 const nanoId = require("nano-id");
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="container">
-      <ReactTextHighlight
+      <ReactAnnotateText
         srcDoc={htmlContent}
         iframeTitle={"Demo"}
         height={600}
